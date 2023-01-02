@@ -1,4 +1,5 @@
-baseURL = 'https://blog.mihaisafta.com/'
+baseURL = 'https://blog-hugo-8u0.pages.dev/'
+#baseURL = 'file:///Users/AQ12PO/Developer/blog-hugo/public/'
 theme = "LoveIt"
 languageCode = 'en-us'
 title = 'Mihai Safta blog'
