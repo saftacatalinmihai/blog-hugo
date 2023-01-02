@@ -1,4 +1,4 @@
-baseURL = 'https://blog-hugo-8u0.pages.dev/'
+baseURL = 'https://blog.mihaisafta.com/'
 #baseURL = 'file:///Users/AQ12PO/Developer/blog-hugo/public/'
 
 theme = "LoveIt"
@@ -40,6 +40,14 @@ enableEmoji = true
         name = "Tags"
         url = "/tags/"
         title = "Tags"
+    [[menu.main]]
+        weight = 3
+        identifier = "rss"
+        pre = "<i class='fa-solid fa-square-rss'></i>"
+        post = ""
+        name = "RSS"
+        url = "/index.xml"
+        title = "RSS"
 
 [params]
     # site default theme ["auto", "light", "dark"]
