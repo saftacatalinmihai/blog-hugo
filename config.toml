@@ -142,7 +142,7 @@ enableEmoji = true
             # LoveIt CHANGED | 0.2.7 title shown in home page (HTML format is supported)
             title = "Mihai Safta's blog"
             # subtitle shown in home page (HTML format is supported)
-            subtitle = "Phylosofer of computtation"
+            subtitle = "Philosopher of computation"
             # whether to use typeit animation for subtitle
             typeit = true
             # whether to show social links
@@ -189,13 +189,13 @@ enableEmoji = true
         # LoveIt CHANGED | 0.2.0 Comment config
         [params.page.comment]
             enable = true
-            # Disqus comment config
-            [params.page.comment.disqus]
+            [params.page.comment.gitalk]
                 # LoveIt NEW | 0.1.1
                 enable = true
-                # Disqus shortname to use Disqus in posts
-                shortname = "@disqus_GokUHptOwH"
-
+                owner = "Safta Catalin Mihai"
+                repo = "https://github.com/saftacatalinmihai/blog-hugo"
+                clientId = "510f7416478f62962093"
+                clientSecret = "b1857059534118ef1433bd5f92fe1a8e8da0f483"
 
     # Social config about the author
     [params.social]
@@ -203,6 +203,9 @@ enableEmoji = true
         Linkedin = "mihaisafta"
         Twitter = "mihaisafta_"
         Strava = "67322330"
+        Reddit = "CatalinMihaiSafta"
+        Goodreads = "35716705-safta-mihai"
+        Email = "saftacatalinmihai@gmail.com"
         [params.social.Mastodon]
             # weight when arranging icons (the greater the weight, the later the icon is positioned)
             weight = -1
