@@ -16,7 +16,7 @@ tags:
     <img alt="graph-dsl-code" title="GraphDSL Code" src="/carbon.png">
 </div>
 
-In the last [post](/post/pure-functional-stream-processing-in-scala-1/), we saw how to combine pure functions running in IO and Akka streams using `.mapAsync` and `.unsafeToFuture`
+In the last [post](/posts/pure-functional-stream-processing-in-scala-1/), we saw how to combine pure functions running in IO and Akka streams using `.mapAsync` and `.unsafeToFuture`
 
 ```scala
 val source: Source[String, NotUsed] = ???
