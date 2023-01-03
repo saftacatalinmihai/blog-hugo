@@ -218,10 +218,8 @@ This is the first part in a series of post where I explore how to connect pure f
 So far we’ve seen that you can write pure functions and embed them in Akka streams using `.mapAsync`. You also have to run the effects inside each step using `.unsafeToFuture`
 
 In the next parts we’ll see how to simplify the interaction between pure functions and Akka stream – by abstracting the need to call `.unsafeToFuture` every time.
-Also, we’ll construct more complex component and use the Akka GraphDSL to combine them in interesting ways.[^1]
+Also, we’ll construct more complex component and use the Akka GraphDSL to combine them in interesting ways.
 
 Hope this helps 😀
 
 Please leave comments or suggestions on [this Reddit thread](https://www.reddit.com/r/scala/comments/lekc2k/pure_functional_stream_processing_in_scala_cats/), and get in touch with me on [Twitter](https://twitter.com/mihaisafta_).
-
-[^1]: asd
