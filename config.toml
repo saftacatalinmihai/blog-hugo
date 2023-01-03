@@ -222,6 +222,8 @@ enableEmoji = true
         Reddit = "CatalinMihaiSafta"
         Goodreads = "35716705-safta-mihai"
         Email = "saftacatalinmihai@gmail.com"
+        Instagram = "saftacatalinmihai"
+        RSS = true
         [params.social.Mastodon]
             # weight when arranging icons (the greater the weight, the later the icon is positioned)
             weight = -1
