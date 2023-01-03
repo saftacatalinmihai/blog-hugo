@@ -1,10 +1,9 @@
 ---
-layout: post
 title: Pure Functional Stream processing in Scala [1]
-excerpt: Cats and Akka – Part 1
+subtitle: Cats and Akka – Part 1
 date: 2021-02-06
-updatedDate: 2021-02-06
-banner: ComponentErr-1.png
+lastmod: 2023-01-02
+images: [ComponentErr-1.png]
 tags:
   - post
   - scala
@@ -87,10 +86,7 @@ A stream component can decide when to ask for more input messages to pass to its
 
 Akka is using the abstractions of Source, Flow, Sink for modeling streams.
 
-<div align="center">
-    <img alt="source-flow-sink" title="Source via Flow to Sink" src="/SourceFlowSink-4.png">
-    <figcaption>Source via Flow to Sink</figcaption>
-</div>
+{{< figure src="/SourceFlowSink-4.png" title="Source via Flow to Sink" alt="source-flow-sink">}}
 
 A Source is a Component that has one output port and generates elements of some type.\
 A Sink is a Component that has a single input port that consumes elements of some type.
@@ -105,10 +101,7 @@ Those are the simplest components, but we can write more complex ones. For insta
 
 I like to model failure in components like this: I use the first output port as the normal (success) output, and the second one as the error output. For a single input, only one of the output ports yield a message.
 
-<div align="center">
-    <img alt="component-error" title="Component with explicit Error output" src="/ComponentErr-1.png">
-    <figcaption>Component with explicit Error output</figcaption>
-</div>
+{{< figure src="/ComponentErr-1.png" title="Component with explicit Error output" alt="component-error">}}
 
 What I like about Akka Streams is the ability to compose components using the Graph DSL. The way you write code can be very intuitive, as it’s almost a one-to-one match with drawing boxes and links between them. Architects and devs are quite familiar with this way of thinking, so it seems very natural.
 
@@ -135,10 +128,7 @@ RunnableGraph.fromGraph(GraphDSL.create() { implicit builder =>
 })
 ```
 
-<div align="center">
-    <img alt="graph_representation" title="Graph Representation" src="/compose_graph.png">
-    <figcaption>Graph representation</figcaption>
-</div>
+{{< figure src="/compose_graph.png" title="Graph representation" alt="graph_representation">}}
 
 Other stream processing frameworks in Scala like [fs2](https://github.com/typelevel/fs2) don’t have such DSL’s, and it may be difficult to write certain kinds of flows.
 
@@ -228,8 +218,10 @@ This is the first part in a series of post where I explore how to connect pure f
 So far we’ve seen that you can write pure functions and embed them in Akka streams using `.mapAsync`. You also have to run the effects inside each step using `.unsafeToFuture`
 
 In the next parts we’ll see how to simplify the interaction between pure functions and Akka stream – by abstracting the need to call `.unsafeToFuture` every time.
-Also, we’ll construct more complex component and use the Akka GraphDSL to combine them in interesting ways.
+Also, we’ll construct more complex component and use the Akka GraphDSL to combine them in interesting ways.[^1]
 
 Hope this helps 😀
 
 Please leave comments or suggestions on [this Reddit thread](https://www.reddit.com/r/scala/comments/lekc2k/pure_functional_stream_processing_in_scala_cats/), and get in touch with me on [Twitter](https://twitter.com/mihaisafta_).
+
+[^1]: asd
