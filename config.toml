@@ -255,6 +255,7 @@ enableEmoji = true
     [params.analytics]
         enable = true
         [params.analytics.plausible]
+            enable = true
             domain = "blog.mihaisafta.com"
 
 [outputs]
