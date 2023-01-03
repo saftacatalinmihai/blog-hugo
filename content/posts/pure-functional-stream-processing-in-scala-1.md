@@ -5,7 +5,6 @@ date: 2021-02-06
 lastmod: 2023-01-02
 images: [ComponentErr-1.png]
 tags:
-  - post
   - scala
   - cats
   - akka

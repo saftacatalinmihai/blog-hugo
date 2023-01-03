@@ -5,7 +5,6 @@ date: 2021-02-14
 lastmod: 2023-01-03
 images: [carbon.png]
 tags:
-  - post
   - scala
   - cats
   - akka

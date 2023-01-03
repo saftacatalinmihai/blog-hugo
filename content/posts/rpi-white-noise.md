@@ -5,8 +5,8 @@ date: 2021-01-31
 lastmod: 2021-01-31
 images: [rpi-white-noise.png]
 tags:
-  - post
   - automation
+  - self-host
 ---
 
 ### Theory
