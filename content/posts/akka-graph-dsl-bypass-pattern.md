@@ -10,7 +10,7 @@ tags:
 - idempotency
 ---
 
-When working with Akka Streams, you might find yourself in a situation where you need to bypass a stage in the graph. 
+When working with Akka Streams, you might find yourself in a situation where you need to bypass a stage in the graph.
 
 This is a good pattern if we want the whole stream to be idempotent. 
 If we get the same message again, we want the stream to be able to process it - but only the stages that were not already processed.
