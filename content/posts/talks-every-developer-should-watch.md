@@ -82,7 +82,7 @@ you shouldn't write systems that violate laws of physics
 
 In this talk, Joe asks what went wrong with programming, given that hardware has improved soo much in the past half century, yet is seems that software is a lot slower than it should be just given CPU speedup in MHz and #processors, and also breaks all the time.
 
-## 5. [Rich Hickey](https://en.wikipedia.org/wiki/Rich_Hickey) - Simple Made Easy (2011)
+## 5. Rich Hickey - Simple Made Easy (2011)
 
 {{< youtube LKtk3HCgTa8 >}}
 
@@ -95,11 +95,11 @@ Rich Hickey is a prominent figure in the software engineering world, known for c
 
 ## OR 
 
-## 6. [Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram) - A New Kind of Science
+## 6. Stephen Wolfram - A New Kind of Science
 
 {{< youtube _eC14GonZnU >}}
 
-## 7. Bret Victor - Inventing on principle (2012)
+## 7. Bret Victor - Inventing on Principle (2012)
 
 {{< youtube EGqwXt90ZqA >}}
 
