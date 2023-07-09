@@ -1,10 +1,10 @@
 ---
 title: "7 Talks every Developer should watch (Draft)"
-date: 2023-07-09T17:57:11Z
+date: 2023-07-09T15:37:11Z
 # draft: true
 ---
 
-- [ ] add links
+TODO
 - [ ] proofread, recheck correct information
 
 These are some of the talks that probably influenced me the most in my career as a software developer.
@@ -91,7 +91,9 @@ Rich Hickey is a prominent figure in the software engineering world, known for c
 
 ## 6. Gerald Sussman - We Really Don't Know How to Compute! (2011)
 
-||
+{{< youtube HB5TrK7A4pI >}}
+
+## OR 
 
 ## 6. [Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram) - A New Kind of Science
 
