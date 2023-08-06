@@ -97,7 +97,7 @@ enableEmoji = true
     [params.footer]
         enable = true
         # LoveIt NEW | 0.2.0 Custom content (HTML format is supported)
-        custom = ''
+        custom = '<div hidden><a rel="me" href="https://fosstodon.org/@mihaisafta">Mastodon</a></div>'
         # LoveIt NEW | 0.2.0 whether to show Hugo and theme info
         hugo = true
         # LoveIt NEW | 0.2.0 whether to show copyright info
