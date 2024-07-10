@@ -77,3 +77,5 @@ And at the same time the diagram can be run as a program.
 This is the idea behind Visual Stream Processing System (VSPS).
 
 This is a highly experimental project that I've been working on in my (very limited) spare time, but I think it has potential.
+
+If you are interested in this project, please reach out to me. I would love to hear your thoughts on it.
