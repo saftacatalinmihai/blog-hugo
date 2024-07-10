@@ -10,7 +10,7 @@ tags:
 
 ## Add
 {{< figure src="/vsps_add.gif" title="" alt="add">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 There is a new tldraw Tool called `Stream Component` (left-most icon: `</>` in the toolbar, short-key `S`). You can then click or draw a rectangle that will add a stream component to the canvas.
 
 The component is not initialised at first - you need to select the component type by selecting from the drop-down. This UI will have to be improved to allow more discoverability, show description of components etc.
@@ -23,13 +23,13 @@ I want the designer to have the feeling of working with just regular drawings - 
 
 ## Connect
 {{< figure src="/vsps_connect.gif" title="" alt="connect">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 You can connect two components by adding arrows from an output port to an input port. Just regular tldraw arrows.
 {{< /admonition >}}
 
 ### Type check on connect
 {{< figure src="/vsps_typecheck.gif" title="" alt="connect">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 The backend that the streaming components are started in is a Scala program. This means that the connections between components can be type-checked. If the connection can be made, the arrow turns green, otherwise it turns red.
 
 This can be an advantage over other visual programming systems that are usually dynamically typed. 
@@ -42,7 +42,7 @@ It is up to the designer to fix this later.
 
 ## Edit
 {{< figure src="/vsps_edit.gif" title="" alt="edit">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 The component's code can be edited in any text editor.
 I want to make it easy for the programmer to open the code directly from the canvas.
 
@@ -52,14 +52,14 @@ However, the restart only takes a few seconds, so it is not a big deal for now.
 
 ## Logs
 {{< figure src="https://s10.gifyu.com/images/StqmJ.gif" title="" alt="logs">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 Instead of adding some custom view for showing logs - why not just use an existing solution (ELK stack - ElasticSearch, Logstash, Kibana) and embed it in the tool.
 After all tldraw allows embedding of any web content with iframes.
 {{< /admonition >}}
 
 ## Proof of concept: Fibonacci
 {{< figure src="https://s10.gifyu.com/images/StqmP.gif" title="" alt="fibonacci">}}
-{{< admonition type=note open=false title="" >}}
+{{< admonition type=note open=true title="" >}}
 This is a simple example of a Fibonacci stream component. It generates the Fibonacci sequence and prints it.
 {{< /admonition >}}
 
