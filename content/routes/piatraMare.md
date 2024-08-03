@@ -8,7 +8,12 @@ date: 2024-08-03T20:50:13+03:00
 <div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3254873782032691122" data-style="standard" data-map-hash="11.43/45.5288/25.6109" data-from-embed="true"></div><script src="https://strava-embeds.com/embed.js"></script>
 {{< /rawhtml >}}
 
+https://mapy.cz/s/fezafefumu
+
+
 ## Versiune 2
 {{< rawhtml >}}
-<div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3254873782032691122" data-style="standard" data-map-hash="10.91/45.5614/25.6245" data-from-embed="true"></div><script src="https://strava-embeds.com/embed.js"></script>
+<div class="strava-embed-placeholder" data-embed-type="route" data-embed-id="3254870071283024314" data-style="standard" data-from-embed="false"></div><script src="https://strava-embeds.com/embed.js"></script>
 {{< /rawhtml >}}
+
+alt: https://mapy.cz/s/jekecunabe
