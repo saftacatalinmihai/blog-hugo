@@ -40,6 +40,17 @@ enableEmoji = true
         name = "Tags"
         url = "/tags/"
         title = "Tags"
+#    [[menu.main]]
+#        weight = 3
+#        identifier = "routes"
+#        # you can add extra information before the name (HTML format is supported), such as icons
+#        pre = ""
+#        # you can add extra information after the name (HTML format is supported), such as icons
+#        post = ""
+#        name = "Routes"
+#        url = "/routes/"
+#        # title will be shown when you hover on this menu link
+#        title = "Routes"
     [[menu.main]]
         weight = 3
         identifier = "about"
