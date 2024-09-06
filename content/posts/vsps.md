@@ -10,7 +10,7 @@ tags:
 
 ## Add
 {{< figure src="/vsps_add.gif" title="" alt="add">}}
-There is a new [tldraw](https://www.tldraw.com/) tool called `Stream Component` (left-most icon: `</>` in the toolbar, shortcut key `S`). You can click or draw a rectangle to add a stream component to the canvas.
+I've added a new [tldraw](https://www.tldraw.com/) tool called `Stream Component` (left-most icon: `</>` in the toolbar, shortcut key `S`). You can click or draw a rectangle to add a stream component to the canvas.
 
 The component is not initialized at first - you need to select the component type from the drop-down menu. This UI will be improved to allow more discoverability, show descriptions of components, etc.
 
