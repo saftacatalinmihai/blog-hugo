@@ -1,7 +1,7 @@
 ---
 title: "Computer"
 date: 2025-07-08T18:01:06+03:00
-draft: true
+draft: false
 ---
 
 ## 🖖 Re-Creating Star Trek's LCARS With Modern LLMs
