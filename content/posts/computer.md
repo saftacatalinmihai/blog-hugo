@@ -4,7 +4,7 @@ date: 2025-07-08T18:01:06+03:00
 draft: false
 ---
 
-## 🖖 Re-Creating Star Trek's LCARS With Modern LLMs
+## 🖖 Re-Creating Star Trek's LCARS Computer With Modern LLMs
 
 *A hands-on experiment in autonomous tool-building agents*
 
@@ -16,7 +16,9 @@ For decades science-fiction fans have watched [Star Trek](https://en.wikipedia.o
 * execute real-world actions by routing commands to subsystems;
 * politely say **why** it couldn't comply when limits were hit.
 
-In 2025, [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) plus [tool-calling APIs](https://platform.openai.com/docs/guides/function-calling) make that dream feel within reach. I decided to find out *how close* we can get—armed with a single cloud VM, a [Postgres](https://www.postgresql.org/) instance, and a code editor.
+In 2025, [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) plus [tool-calling APIs](https://platform.openai.com/docs/guides/function-calling) make that dream feel within reach. I decided to find out *how close* we can get—armed with [Replit](https://replit.com/) dev env, and a [Postgres](https://www.postgresql.org/) instance.
+
+You can find the open source code here: https://github.com/saftacatalinmihai/Computer
 
 ---
 
@@ -60,7 +62,7 @@ apps with something that feels both more advanced and more intuitive.
 This architecture is specifically designed to enable flexible CRUD operations through natural language. The database layer supports dynamic schema creation, while the LLM "brain" translates user intentions into appropriate database operations.
 
 {{< mermaid >}}
-graph TD
+graph TD;
     User[User] --> |Natural Language| Interfaces
     subgraph Interfaces
         CLI[Command-Line REPL]
