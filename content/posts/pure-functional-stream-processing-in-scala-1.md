@@ -10,6 +10,14 @@ tags:
   - akka
 ---
 
+**What if I told you that the secret to building robust, scalable systems isn't choosing between functional programming and stream processing—but masterfully combining both?**
+
+In the world of Scala development, two paradigms often seem to compete for dominance: the elegant mathematical purity of functional programming and the practical, real-world power of stream processing. Developers typically choose sides, becoming either FP purists or stream processing pragmatists.
+
+But what if this is a false dichotomy?
+
+## The Functional Perspective: Pure and Composable
+
 In [Scala](https://www.scala-lang.org/) you can write [pure functional](https://en.wikipedia.org/wiki/Purely_functional_programming) code, similar to [Haskell](https://www.haskell.org/) or other [pure functional languages](https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Pure), but you’re not obligated to. Wikipedia categories Scala as an impure Functional language.
 
 FP purists view this as a weakness of Scala, but others view the option of “cheating” pureness as an acceptable choice sometimes. Even if you can do everything purely, it’s sometimes a lot easier to think about the problem in a different paradigm.

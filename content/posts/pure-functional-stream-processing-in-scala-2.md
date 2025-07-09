@@ -10,9 +10,15 @@ tags:
   - akka
 ---
 
+**Remember that moment when you first saw `.mapAsync` and `.unsafeToFuture` working together and thought, "There has to be a cleaner way to do this"?**
+
+You're not alone. Every developer who's tried to bridge the gap between Cats IO and Akka Streams has faced this exact moment of friction. The code works, but it feels... inelegant. Like using a sledgehammer to crack a nut.
+
 {{< figure src="/carbon.png" title="" alt="graph-dsl-code">}}
 
-In the last [post](/posts/pure-functional-stream-processing-in-scala-1/), we saw how to combine pure functions running in IO and Akka streams using `.mapAsync` and `.unsafeToFuture`
+## The Bridge We Built: A Quick Recap
+
+In the last [post](/posts/pure-functional-stream-processing-in-scala-1/), we saw how to combine pure functions running in IO and Akka streams using `.mapAsync` and `.unsafeToFuture`:
 
 ```scala
 val source: Source[String, NotUsed] = ???

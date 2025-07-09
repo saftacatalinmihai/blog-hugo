@@ -8,6 +8,31 @@ tags:
 - visual_programming
 ---
 
+**What if programming could be as intuitive as drawing?**
+
+For decades, we've been trapped in the text-based paradigm of programming. We write code in linear fashion, from top to bottom, forcing our minds to translate visual concepts into textual representations. But what if there was a more natural way?
+
+What if you could literally *draw* your program—connecting components with simple lines, watching data flow in real-time, and debugging by observing the visual stream?
+
+## The Vision: Programming as Visual Art
+
+Imagine building a complex data processing pipeline not by writing hundreds of lines of code, but by:
+
+- **Drawing components** on a canvas like shapes on a whiteboard
+- **Connecting them visually** with arrows that represent data flow
+- **Watching real-time execution** as data moves through your visual program
+- **Debugging by observation** rather than by reading logs
+
+This isn't science fiction—this is the Visual Stream Processing System (VSPS), where programming becomes as intuitive as sketching.
+
+## The Journey: From Concept to Canvas
+
+The following sections demonstrate how this vision transforms traditional programming concepts into visual, interactive experiences:
+
+**Add** → **Connect** → **Edit** → **Debug** → **Deploy**
+
+Each step brings us closer to a future where the gap between thinking and creating software disappears.
+
 ## Add
 {{< figure src="/vsps_add.gif" title="" alt="add">}}
 I've added a new [tldraw](https://www.tldraw.com/) tool called `Stream Component` (left-most icon: `</>` in the toolbar, shortcut key `S`). You can click or draw a rectangle to add a stream component to the canvas.
