@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Pure Functional Stream processing in Scala [2] - </title><meta name="Description" content="Mihai Safta&#39;s blog - toughts about computing"><meta property="og:title" content="Pure Functional Stream processing in Scala [2]" />
+<meta property="og:description" content="In the last post, we saw how to combine pure functions running in IO and Akka streams using .mapAsync and .unsafeToFuture
+val source: Source[String, NotUsed] = ??? val sink: Sink[Int, NotUsed] = ??? def pureFunction[F[_]](s: String): F[Int] = ??? source .mapAsync(parallelism = 8)(m =&gt; pureFunction[IO](m).unsafeToFuture()) .runWith(sink) In order to make it easier to work with IO in Akka Streams, we can write some helpers to add a method on Streams that automatically run the IO inside the flow." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" /><meta property="og:image" content="http://localhost:8080/carbon.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-07-08T20:37:53+03:00" /><meta property="og:site_name" content="Mihai Safta" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:8080/carbon.png" /><meta name="twitter:title" content="Pure Functional Stream processing in Scala [2]"/>
+<meta name="twitter:description" content="In the last post, we saw how to combine pure functions running in IO and Akka streams using .mapAsync and .unsafeToFuture
+val source: Source[String, NotUsed] = ??? val sink: Sink[Int, NotUsed] = ??? def pureFunction[F[_]](s: String): F[Int] = ??? source .mapAsync(parallelism = 8)(m =&gt; pureFunction[IO](m).unsafeToFuture()) .runWith(sink) In order to make it easier to work with IO in Akka Streams, we can write some helpers to add a method on Streams that automatically run the IO inside the flow."/>
+<meta name="twitter:site" content="@mihaisafta_"/>
+<meta name="application-name" content="Mihai Safta">
+<meta name="apple-mobile-web-app-title" content="Mihai Safta"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" /><link rel="prev" href="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" /><link rel="next" href="http://localhost:8080/posts/on-writing-code/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Pure Functional Stream processing in Scala [2]",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:8080\/posts\/pure-functional-stream-processing-in-scala-2\/"
+        },"genre": "posts","keywords": "scala, cats, akka","wordcount":  2063 ,
+        "url": "http:\/\/localhost:8080\/posts\/pure-functional-stream-processing-in-scala-2\/","datePublished": "2021-02-14T00:00:00+00:00","dateModified": "2025-07-08T20:37:53+03:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Safta Catalin Mihai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mihai Safta</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/tags/" title="Tags"> Tags </a><a class="menu-item" href="/about" title="About"> About </a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i> RSS </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder=" " id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mihai Safta</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder=" " id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/tags/" title="Tags">Tags</a><a class="menu-item" href="/about" title="About">About</a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i>RSS</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Pure Functional Stream processing in Scala [2]</h1><h2 class="single-subtitle">Cats and Akka – Part 2</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://mihai-safta.dev" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Safta Catalin Mihai</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-14">2021-02-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2063 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;10 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#streams-as-plumbing">Streams as plumbing</a></li>
+        <li><a href="#simplify-cats-and-akka-interaction">Simplify Cats and Akka interaction</a></li>
+        <li><a href="#complex-graphs">Complex graphs</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><img src="/carbon.png"
+         alt="graph-dsl-code"/>
+</figure>
+
+<p>In the last <a href="/posts/pure-functional-stream-processing-in-scala-1/" rel="">post</a>, we saw how to combine pure functions running in IO and Akka streams using <code>.mapAsync</code> and <code>.unsafeToFuture</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">source</span><span class="k">:</span> <span class="kt">Source</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">sink</span><span class="k">:</span> <span class="kt">Sink</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">pureFunction</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]](</span><span class="n">s</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">source</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">pureFunction</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="n">sink</span><span class="o">)</span>
+</span></span></code></pre></div><p>In order to make it easier to work with IO in Akka Streams, we can write some helpers to add a method on Streams that automatically run the IO inside the flow. This will simplify the interaction between pure code and stream code.</p>
+<p>Readability will improve, <strong>but</strong> before we get there, it’s very important to recognise that we should view these 2 ways of writing code<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> as having <a href="https://en.wikipedia.org/wiki/Orthogonality_%5c%28programming%5c%29" target="_blank" rel="noopener noreffer ">orthogonal</a> purposes.</p>
+<!-- raw HTML omitted -->
+<h3 id="streams-as-plumbing">Streams as plumbing</h3>
+<!-- raw HTML omitted -->
+<figure><img src="/plumbing.jpeg"
+         alt="plumbing"/>
+</figure>
+
+<p>The philosophy is identical to how <a href="https://en.wikipedia.org/wiki/Pipeline_%28Unix%29" target="_blank" rel="noopener noreffer ">Unix pipes</a>  work.<br>
+You write small pieces of code using simple programs like: <code>ps, grep, find, sed, awk, xargs, kill</code> etc… and join those smaller programs into a bigger one by piping data between them. The output of one program goes into the input of the next.</p>
+<p>There is a clear separation of duties between programs that do something<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> and pipes that just pass data along between programs.</p>
+<p>Here’s an example of a pipeline that finds all java processed and stops them:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="n">ps</span> <span class="n">aux</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">java</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="n">grep</span> <span class="o">|</span> <span class="n">awk</span> <span class="err">&#39;</span><span class="o">{</span> <span class="n">print</span> <span class="n">$2</span> <span class="o">}</span><span class="err">&#39;</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">kill</span> <span class="o">-</span><span class="mi">9</span>
+</span></span></code></pre></div><p>The similarity between this and Akka flows is almost one to one<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>One issue in Scala is that we write both the <strong>program</strong> and the <strong>pipeline / stream</strong> in the same language, which can blurry the separation of concerns…<br>
+For this reason, some people don’t see why we should separate these two ways of writing the full program.
+My view is that we should try to separate them logically to get to the simple way of composing programs like using Unix Pipelines.</p>
+<p>My suggestion here is to have separate modules for the domain, and Classes with pure functions working on the domain that run certain actions.<br>
+After constructing those Classes (which can be individually unit-tested), write a Class taking the other domain and functionality Classes as constructor arguments.</p>
+<p>This Class should just combine all the individual pure functions by wrapping them in Akka flows, but nothing more. No extra business logic other than the order of operations…</p>
+<h3 id="simplify-cats-and-akka-interaction">Simplify Cats and Akka interaction</h3>
+<p>Assuming we understand the separation of concerns between pure functions and streams, we still want to make their combination easy. Maybe as easy as the Unix pipe.</p>
+<p>The first step is to simplify using <code>.mapAsync</code> and IO.</p>
+<p>What we need is another method on Akka streams that automatically runs the IO<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> inside the Flow by transforming it into a Future.</p>
+<p>We can enable this generically by wrapping a source or flow in extension classes with the extra method: <code>.unsafeMapAsync</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">SourceExtensions</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">Mat</span><span class="o">](</span><span class="k">val</span> <span class="n">source</span><span class="k">:</span> <span class="kt">Source</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">Mat</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">AnyVal</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">unsafeMapAsync</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Effect</span>, <span class="kt">B</span><span class="o">](</span><span class="n">parallelism</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="n">F</span><span class="o">[</span><span class="kt">B</span><span class="o">])</span><span class="k">:</span> <span class="kt">source.Repr</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source</span><span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span><span class="o">)(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Effect</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">toIO</span><span class="o">(</span><span class="n">f</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">FlowExtensions</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">Mat</span><span class="o">](</span><span class="k">val</span> <span class="n">flow</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">Mat</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">AnyVal</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">unsafeMapAsync</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Effect</span>, <span class="kt">C</span><span class="o">](</span><span class="n">parallelism</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=&gt;</span> <span class="n">F</span><span class="o">[</span><span class="kt">C</span><span class="o">])</span><span class="k">:</span> <span class="kt">flow.Repr</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flow</span><span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span><span class="o">)(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Effect</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">toIO</span><span class="o">(</span><span class="n">f</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>The method name shows we are running the effect which is unsafe<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> – similar to the method name <code>.unsafeToFuture</code>
+This is the split between pure FP and Akka streams. We are now in streaming territory where we run the effects in each flow step.</p>
+<hr>
+<p>Now we can rewrite the code from the previous <a href="/post/pure-functional-stream-processing-in-scala-1/#mapAsync-unsafeToFuture" rel="">post</a>.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="nc">Source</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">&#34;1|123&#34;</span><span class="o">,</span> <span class="s">&#34;2|123&#34;</span><span class="o">,</span> <span class="s">&#34;3|789&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">parseMessage</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">getUser</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">.</span><span class="n">userId</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">u</span> <span class="k">=&gt;</span> <span class="n">checkPermission</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">p</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)</span> <span class="o">{</span> <span class="k">case</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">seq</span><span class="o">)</span>
+</span></span></code></pre></div><p>Notice the lack of calls to <code>.unsafeToFuture()</code><br>
+Much cleaner.</p>
+<hr>
+<p>Another refactor we can do is to extract individual flows in values – same as we could do with functions, but in this case they are Flow types.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">parseFlow</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[</span><span class="kt">String</span><span class="o">].</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">parseMessage</span><span class="o">[</span><span class="kt">IO</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">getUserFlow</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[</span><span class="kt">Message</span><span class="o">].</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">getUser</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">.</span><span class="n">userId</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">checkPermissionFlow</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[</span><span class="kt">User</span><span class="o">].</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">u</span> <span class="k">=&gt;</span> <span class="n">checkPermission</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">).</span><span class="n">map</span><span class="o">(</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">sendNewsletterFlow</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[(</span><span class="kt">User</span>, <span class="kt">Boolean</span><span class="o">)].</span><span class="n">unsafeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>And then use the <code>.via</code> method to combine them in a bigger flow</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">flow</span> <span class="k">=</span> <span class="n">parseFlow</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">via</span><span class="o">(</span><span class="n">getUserFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">via</span><span class="o">(</span><span class="n">checkPermissionFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">via</span><span class="o">(</span><span class="n">sendNewsletterFlow</span><span class="o">)</span>
+</span></span></code></pre></div><p>Looks much closer to the unix pipeline example, so I’m happy 😃.<br>
+We construct the full stream using .via to connect the Source and Sink as well</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="nc">Source</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">&#34;1|123&#34;</span><span class="o">,</span> <span class="s">&#34;2|123&#34;</span><span class="o">,</span> <span class="s">&#34;3|789&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">via</span><span class="o">(</span><span class="n">flow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">seq</span><span class="o">)</span>
+</span></span></code></pre></div><hr>
+<p>We can go a step further and use the <a href="https://doc.akka.io/docs/akka/current/stream/stream-graphs.html#constructing-graphs" target="_blank" rel="noopener noreffer ">GraphDSL</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">flow</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">.</span><span class="n">fromGraph</span><span class="o">(</span><span class="nc">GraphDSL</span><span class="o">.</span><span class="n">create</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">builder</span> <span class="k">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">import</span> <span class="nn">GraphDSL.Implicits._</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="nc">Parse</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">parseFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="nc">GetUser</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">getUserFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="nc">CheckPermission</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">checkPermissionFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="nc">SendNewsletter</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">sendNewsletterFlow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">Parse</span> <span class="o">~&gt;</span> <span class="nc">GetUser</span> <span class="o">~&gt;</span> <span class="nc">CheckPermission</span> <span class="o">~&gt;</span> <span class="nc">SendNewsletter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">FlowShape</span><span class="o">(</span><span class="nc">Parse</span><span class="o">.</span><span class="n">in</span><span class="o">,</span> <span class="nc">SendNewsletter</span><span class="o">.</span><span class="n">out</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">})</span>
+</span></span></code></pre></div><p>Here we add the flows as nodes in the Akka Graph, then join them together in a single flow using Akka’s GraphDSL and the <code>~&gt;</code> operator.<br>
+The result is a graph with the <a href="https://doc.akka.io/docs/akka/current/stream/stream-graphs.html#predefined-shapes" target="_blank" rel="noopener noreffer ">Shape</a> of a Flow – one input, out output. We can create an actual Flow from the graph with the constructor: <code>Flow.fromGraph</code></p>
+<p>Notice how similar the expression:<br>
+<code>Parse ~&gt; GetUser ~&gt; CheckPermission ~&gt; SendNewsletter</code><br>
+Is to a unix pipeline. Just replace ~&gt; with | and it’s the same.</p>
+<p>It’s also very similar to something we might draw to represent this flow.</p>
+<figure><img src="/Flow-1.png"
+         alt="flow-representation"/>
+</figure>
+
+<p>I think this is one of the significant advantages of using Akka streams and the GraphDSL – <strong>you can look at the actual code to see the computational graph instead of looking at representations of it</strong>.<br>
+It’s not drawn by someone else, which can also become outdated quickly. The code does not lie, a representation can.</p>
+<p>The major difference between the GraphDSL and using <code>.unsafeMapAsync</code> directly is that we separate individual graph nodes from their connection to other nodes – similar to the idea in <a href="https://en.wikipedia.org/wiki/Flow-based_programming" target="_blank" rel="noopener noreffer ">Flow based programming</a>. This allows for higher flexibility.<br>
+If there are multiple implementations for a component with the same interface, we can easily just swap the component to the new one, but the graph structure remains the same.</p>
+<p>The GraphDSL allows us to create more complex computational graphs than this simple one.<br>
+For this one, it is of course easier to use the simpler version from the <a href="#refactor-1" rel="">first example</a>.</p>
+<h3 id="complex-graphs">Complex graphs</h3>
+<p>So far we haven’t looked at how to treat errors in the stream…<br>
+If we do nothing, for any exception thrown in the stream, Akka will simply silently ignore them… There are methods to deal with that the <a href="https://doc.akka.io/docs/akka/current/stream/stream-error.html" target="_blank" rel="noopener noreffer ">Akka way</a>.</p>
+<p>However, let’s look at what we can implement to make sure the stream never stops processing but we still handle errors. We can do that because we’re in control of the way we execute the effects in the stream.</p>
+<p>We can design a different stream component that will catch exceptions in the <strong>IO</strong> and push it on a separate error stream – similar to the STDERR of Unix.</p>
+<figure><img src="/ComponentErr-1.png"
+         alt="component-err"/>
+</figure>
+
+<p>To achieve this we can add another extension method on Flow and Source which will run the effect but return a component with a specific output for the Error, if there is any error thrown in the effect.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">implicit</span> <span class="k">class</span> <span class="nc">FlowExtensions</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span><span class="o">](</span><span class="k">val</span> <span class="n">flow</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">NotUsed</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">AnyVal</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">def</span> <span class="n">safeMapAsync</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Effect</span>, <span class="kt">C</span><span class="o">](</span><span class="n">parallelism</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="k">:</span> <span class="kt">B</span> <span class="o">=&gt;</span> <span class="n">F</span><span class="o">[</span><span class="kt">C</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">)</span><span class="k">:</span> <span class="kt">Graph</span><span class="o">[</span><span class="kt">FanOutShape2</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">C</span>, <span class="kt">Throwable</span><span class="o">]</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">split</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">Throwable</span>, <span class="kt">C</span><span class="o">](</span>
+</span></span><span class="line"><span class="cl">      <span class="n">flow</span><span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span><span class="o">)(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Effect</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">toIO</span><span class="o">(</span><span class="n">f</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="n">attempt</span><span class="o">.</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>We’ll call this <code>safeMapAsync</code> since we know w’re catching exceptions as part of the graph.</p>
+<p>The logic behind is just calling <code>.attempt</code> on the <strong>IO</strong>, which will return an <code>Either[Throwable, C]</code> . We then split the Either into the 2 separate outputs of the new Graph.</p>
+<p>The return type here is no longer Flow, but it’s a Graph with the shape: FanOut with 2 outputs:<br>
+<code>Graph[FanOutShape2[A, C, Throwable], NotUsed]</code><br>
+The input is of type A, normal output type is C and error output is Throwable.</p>
+<p>The helper method for splitting the Either is a bit more verbose… but it’s very generic, so you only have to write it once.</p>
+<p>The helper method for splitting the Either is a bit more verbose… but it’s very generic, so you only have to write it once.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">def</span> <span class="n">split</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">E</span>, <span class="kt">B</span><span class="o">](</span><span class="n">flow</span><span class="k">:</span> <span class="kt">Flow</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">B</span><span class="o">]</span>, <span class="kt">NotUsed</span><span class="o">])</span><span class="k">:</span> <span class="kt">Graph</span><span class="o">[</span><span class="kt">FanOutShape2</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">E</span><span class="o">]</span>, <span class="kt">NotUsed</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">GraphDSL</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="n">create</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">builder</span> <span class="k">=&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">import</span> <span class="nn">GraphDSL.Implicits._</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">val</span> <span class="n">F</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">flow</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">val</span> <span class="n">B</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Broadcast</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">B</span><span class="o">]](</span><span class="mi">2</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">val</span> <span class="nc">LeftBranch</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">B</span><span class="o">]].</span><span class="n">collect</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">      <span class="o">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">val</span> <span class="nc">RightBranch</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">B</span><span class="o">]].</span><span class="n">collect</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">c</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">c</span>
+</span></span><span class="line"><span class="cl">      <span class="o">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">F</span> <span class="o">~&gt;</span> <span class="n">B</span> <span class="o">~&gt;</span> <span class="nc">LeftBranch</span>
+</span></span><span class="line"><span class="cl">           <span class="n">B</span> <span class="o">~&gt;</span> <span class="nc">RightBranch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">new</span> <span class="nc">FanOutShape2</span><span class="o">(</span><span class="n">F</span><span class="o">.</span><span class="n">in</span><span class="o">,</span> <span class="nc">RightBranch</span><span class="o">.</span><span class="n">out</span><span class="o">,</span> <span class="nc">LeftBranch</span><span class="o">.</span><span class="n">out</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></div><p>Now we can again rewrite the original stream to capture the error outputs and merge them into a generic error handling flow.</p>
+<p>First, we need to update the components to use <code>.safeMapAsync</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">parseComponent</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[</span><span class="kt">String</span><span class="o">].</span><span class="n">safeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">parseMessage</span><span class="o">[</span><span class="kt">IO</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">getUserComponent</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[</span><span class="kt">Message</span><span class="o">].</span><span class="n">safeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">getUser</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">.</span><span class="n">userId</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">checkPermissionComponent</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">Flow</span><span class="o">[</span><span class="kt">User</span><span class="o">].</span><span class="n">safeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">u</span> <span class="k">=&gt;</span> <span class="n">checkPermission</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">).</span><span class="n">map</span><span class="o">(</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">sendNewsletterComponent</span> <span class="k">=</span> <span class="nc">Flow</span><span class="o">[(</span><span class="kt">User</span>, <span class="kt">Boolean</span><span class="o">)].</span><span class="n">safeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>We then write the graph using these components</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="nc">GraphDSL</span><span class="o">.</span><span class="n">create</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">builder</span> <span class="k">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">import</span> <span class="nn">GraphDSL.Implicits._</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="o">(</span><span class="n">parse</span><span class="o">,</span> <span class="n">parseErr</span><span class="o">)</span> <span class="k">=</span> <span class="n">toTuple</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">parseComponent</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="o">(</span><span class="n">getUser</span><span class="o">,</span> <span class="n">getUserErr</span><span class="o">)</span> <span class="k">=</span> <span class="n">toTuple</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">getUserComponent</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="o">(</span><span class="n">checkPermission</span><span class="o">,</span> <span class="n">checkPermissionErr</span><span class="o">)</span> <span class="k">=</span> <span class="n">toTuple</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">checkPermissionComponent</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="o">(</span><span class="n">sendNewsletter</span><span class="o">,</span> <span class="n">sendNewsletterErr</span><span class="o">)</span> <span class="k">=</span> <span class="n">toTuple</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">sendNewsletterComponent</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="o">(</span><span class="n">handleErrors</span><span class="o">,</span> <span class="n">handleErrorsErr</span><span class="o">)</span> <span class="k">=</span> <span class="n">toTuple</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="n">handleErrorsComponent</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">M</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Merge</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">](</span><span class="mi">5</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// format: off
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">parse</span> <span class="o">~&gt;</span> <span class="n">getUser</span> <span class="o">~&gt;</span> <span class="n">checkPermission</span> <span class="o">~&gt;</span> <span class="n">sendNewsletter</span>
+</span></span><span class="line"><span class="cl">  <span class="n">parseErr</span> <span class="o">~&gt;</span>                                                  <span class="n">M</span>
+</span></span><span class="line"><span class="cl">           <span class="n">getUserErr</span> <span class="o">~&gt;</span>                                       <span class="n">M</span>
+</span></span><span class="line"><span class="cl">                      <span class="n">checkPermissionErr</span> <span class="o">~&gt;</span>                    <span class="n">M</span>
+</span></span><span class="line"><span class="cl">                                         <span class="n">sendNewsletterErr</span> <span class="o">~&gt;</span>  <span class="n">M</span> <span class="o">~&gt;</span> <span class="n">handleErrors</span>
+</span></span><span class="line"><span class="cl">                                                               <span class="n">M</span> <span class="o">&lt;~</span> <span class="n">handleErrorsErr</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// format: on
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="nc">FanOutShape2</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Unit</span>, <span class="kt">Throwable</span><span class="o">](</span><span class="n">parse</span><span class="o">.</span><span class="n">in</span><span class="o">,</span> <span class="n">sendNewsletter</span><span class="o">.</span><span class="n">out</span><span class="o">,</span> <span class="n">handleErrors</span><span class="o">.</span><span class="n">out</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>The toTuple<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> helper just recreates a Flow for the success path and a separate Source with the errors from the FanOutShape2 graph to make it easier to connect.</p>
+<p>If we look at this drawing of this graph and compare it with the code, we’ll see that they are quite similar</p>
+<figure><img src="/ComplexComponents.png"
+         alt="complex-components"/><figcaption>
+            <h4>Complex Components</h4>
+        </figcaption>
+</figure>
+
+<p>Notice that the newly constructed Graph is itself a <code>FanOutShape2</code> graph. We could embed it in a higher level graph. Structural composition of graphs is easy, they compose hierarchically.</p>
+<p>Also note that we have a loop from the error output of the error handler itself. This may come as a surprise… we could have side-effects in handling errors like sending a notification to PagerDuty or an email. These effects could fail themselves - if the service is down…</p>
+<p>If we wrote the code in a more traditional manner, we might even miss seeing this loop<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>, but now that we see it explicitly, we can do something about it<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>.</p>
+<p>In my case, the handleErrorsComponent function prints the exception, but also <a href="https://doc.akka.io/docs/akka/current/stream/operators/Source-or-Flow/throttle.html#throttle" target="_blank" rel="noopener noreffer ">throttles</a> the stream so that if there are many errors happening, the whole stream will go into back-pressure and start taking fewer input messages.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">handleErrorsComponent</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">Flow</span><span class="o">[</span><span class="kt">Throwable</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="n">throttle</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="n">safeMapAsync</span><span class="o">(</span><span class="mi">8</span><span class="o">)(</span><span class="n">t</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">t</span><span class="o">))</span>
+</span></span></code></pre></div><p>Because the error data flow is explicit in the stream, the graph becomes more verbose than before.<br>
+I don’t see this as a problem, in fact, I see it as a plus since many issues with systems occur because of poor error management.</p>
+<p>Having explicit error output forces you to deal with them. The graph needs to be fully connected, so the errors have to go somewhere.</p>
+<p>Having a generic error handling flow is a good place to start, and just merge all errors in this flow. We can conceive more complex scenarios where you can handle different error types in different flows. Just connecting the error outputs to the specific error handler component can configure it.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>In this post, we find how to create Akka flows from pure functions in a syntactically cleaner way, with the help of some extension classes over Source and Flow.</p>
+<p>We also see how to construct more complex components and stitch them together using the GraphDSL.</p>
+<p>In future posts, I’ll explore more patterns of constructing and combining components.</p>
+<p>Coments <a href="https://www.reddit.com/r/scala/comments/lotklb/pure_functional_stream_processing_in_scala_cats/" target="_blank" rel="noopener noreffer ">thread on Reddit</a></p>
+<!-- raw HTML omitted -->
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Pure code and Streams code&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Programs that do some work and have side effects&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>The difference is that Unix pipes have 2 output streams: STDOUT and STDERR.<br>
+In Akka flows, you only have one output as a stream – which is for successful processing.<br>
+It throws errors out of bound – you don’t have an error stream&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>We can be more generic by using the <a href="https://typelevel.org/cats-effect/typeclasses/effect.html" target="_blank" rel="noopener noreffer ">Effect</a> type constraint instead of IO directly&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>Because it executes side effects&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"> <span class="k">def</span> <span class="n">toTuple</span><span class="o">[</span><span class="kt">I</span>, <span class="kt">O</span>, <span class="kt">E</span><span class="o">](</span><span class="n">g</span><span class="k">:</span> <span class="kt">FanOutShape2</span><span class="o">[</span><span class="kt">I</span>, <span class="kt">O</span>, <span class="kt">E</span><span class="o">])</span><span class="k">:</span> <span class="o">(</span><span class="kt">FlowShape</span><span class="o">[</span><span class="kt">I</span>, <span class="kt">O</span><span class="o">],</span> <span class="nc">Outlet</span><span class="o">[</span><span class="kt">E</span><span class="o">])</span> <span class="k">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">val</span> <span class="nc">Err</span> <span class="k">=</span> <span class="n">g</span><span class="o">.</span><span class="n">out1</span>
+</span></span><span class="line"><span class="cl">   <span class="k">val</span> <span class="nc">Success</span> <span class="k">=</span> <span class="n">g</span><span class="o">.</span><span class="n">out0</span>
+</span></span><span class="line"><span class="cl">   <span class="o">(</span><span class="nc">FlowShape</span><span class="o">(</span><span class="n">g</span><span class="o">.</span><span class="n">in</span><span class="o">,</span> <span class="nc">Success</span><span class="o">),</span> <span class="nc">Err</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="o">}</span>
+</span></span></code></pre></div>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+<li id="fn:7">
+<p>which could lead to unfortunate things like messages stuck in an infinite loop, hogging CPU and memory&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8">
+<p>making sure to handle errors in the loop, so they don’t cycle infinitely&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-07-08&nbsp;<a class="git-hash" href="https://github.com/saftacatalinmihai/blog-hugo/commit/435b7bcc9010b7577656e3a588f117c02d505ffb" target="_blank" title="commit by Safta Catalin Mihai(saftacatalinmihai@gmail.com) 435b7bcc9010b7577656e3a588f117c02d505ffb: Update computer.md">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>435b7bc</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" data-title="Pure Functional Stream processing in Scala [2]" data-via="mihaisafta_" data-hashtags="scala,cats,akka"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" data-hashtag="scala"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" data-title="Pure Functional Stream processing in Scala [2]"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/scala/">Scala</a>,&nbsp;<a href="/tags/cats/">Cats</a>,&nbsp;<a href="/tags/akka/">Akka</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/pure-functional-stream-processing-in-scala-1/" class="prev" rel="prev" title="Pure Functional Stream processing in Scala [1]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Pure Functional Stream processing in Scala [1]</a>
+            <a href="/posts/on-writing-code/" class="next" rel="next" title="On writing code">On writing code<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><div hidden><a rel="me" href="https://fosstodon.org/@mihaisafta">Mastodon</a></div></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://mihai-safta.dev" target="_blank">Safta Catalin Mihai</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

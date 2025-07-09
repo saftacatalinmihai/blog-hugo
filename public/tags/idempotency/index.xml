@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Idempotency - Tag - </title>
+        <link>http://localhost:8080/tags/idempotency/</link>
+        <description>Idempotency - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</managingEditor>
+            <webMaster>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</webMaster><lastBuildDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</lastBuildDate><atom:link href="http://localhost:8080/tags/idempotency/" rel="self" type="application/rss+xml" /><item>
+    <title>Designing idempotent Streaming system</title>
+    <link>http://localhost:8080/posts/akka-graph-dsl-bypass-pattern/</link>
+    <pubDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/akka-graph-dsl-bypass-pattern/</guid>
+    <description><![CDATA[When working with Akka Streams, you might find yourself in a situation where you need to bypass a stage in the graph.
+This is a good pattern if we want the whole stream to be idempotent. If we get the same message again, we want the stream to be able to process it - but only the stages that were not already processed.
+We usually save the extra information after each processing stage.]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,106 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - </title>
+        <link>http://localhost:8080/posts/</link>
+        <description>All Posts | </description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</managingEditor>
+            <webMaster>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</webMaster><lastBuildDate>Tue, 08 Jul 2025 18:01:06 &#43;0300</lastBuildDate><atom:link href="http://localhost:8080/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Computer</title>
+    <link>http://localhost:8080/posts/computer/</link>
+    <pubDate>Tue, 08 Jul 2025 18:01:06 &#43;0300</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/computer/</guid>
+    <description><![CDATA[🖖 Re-Creating Star Trek&rsquo;s LCARS Computer With Modern LLMs A hands-on experiment in autonomous tool-building agents
+Imagine walking into your home and saying, &ldquo;Computer, show me when I last watered the plants and remind me to buy groceries.&rdquo; No app switching, no hunting through interfaces, no remembering which service stores what data. Just a conversation with your digital assistant that understands context, remembers everything, and can act on your behalf.]]></description>
+</item>
+<item>
+    <title>Visual Stream Processing System</title>
+    <link>http://localhost:8080/posts/vsps/</link>
+    <pubDate>Wed, 10 Jul 2024 12:44:58 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/vsps/</guid>
+    <description><![CDATA[Add I&rsquo;ve added a new tldraw tool called Stream Component (left-most icon: &lt;/&gt; in the toolbar, shortcut key S). You can click or draw a rectangle to add a stream component to the canvas.
+The component is not initialized at first - you need to select the component type from the drop-down menu. This UI will be improved to allow more discoverability, show descriptions of components, etc.
+After selecting the component type, it will be initialized (started in the backend) and begin running immediately, waiting for inputs on its input port(s).]]></description>
+</item>
+<item>
+    <title>7 Essential Tech Talks Every Developer Should Watch</title>
+    <link>http://localhost:8080/posts/talks-every-developer-should-watch/</link>
+    <pubDate>Sun, 09 Jul 2023 15:37:11 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/talks-every-developer-should-watch/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://public.mihai-safta.dev/workroom.png" referrerpolicy="no-referrer">
+            </div>Whether you&rsquo;re a seasoned developer or just starting your coding journey, these seven talks are packed with insights that will challenge and inspire you.
+In the rapidly evolving world of software development, it&rsquo;s easy to get lost in the sea of new languages, frameworks, and techniques. But as I journeyed through my career as a developer, I found that revisiting seminal talks from industry visionaries consistently provides me with fresh perspectives and enduring wisdom.]]></description>
+</item>
+<item>
+    <title>How to work on a hugo site usign github codespaces</title>
+    <link>http://localhost:8080/posts/hugo-edit-on-codespaces/</link>
+    <pubDate>Tue, 04 Jul 2023 04:21:49 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/hugo-edit-on-codespaces/</guid>
+    <description><![CDATA[My setup for working on this blog is to write on a tablet, not my main computer, so i can&rsquo;t directly run the hugo server locally.
+I decided to use github codespacaces for editing the blog and run it as aa dev server so I can view the edited pages after making changes.
+Here&rsquo;s some of the links with tutorials I followed to acomplish this:
+post not showing - date might be wrong ]]></description>
+</item>
+<item>
+    <title>Designing idempotent Streaming system</title>
+    <link>http://localhost:8080/posts/akka-graph-dsl-bypass-pattern/</link>
+    <pubDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/akka-graph-dsl-bypass-pattern/</guid>
+    <description><![CDATA[When working with Akka Streams, you might find yourself in a situation where you need to bypass a stage in the graph.
+This is a good pattern if we want the whole stream to be idempotent. If we get the same message again, we want the stream to be able to process it - but only the stages that were not already processed.
+We usually save the extra information after each processing stage.]]></description>
+</item>
+<item>
+    <title>Microservice scaling advantage?</title>
+    <link>http://localhost:8080/posts/is-independent-scaling-of-us-an-advantage/</link>
+    <pubDate>Sun, 12 Jun 2022 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/is-independent-scaling-of-us-an-advantage/</guid>
+    <description><![CDATA[Let&rsquo;s say you have a service that runs a number of steps for it&rsquo;s business process. One of those steps consumes high CPU - something to do with cryptographic functions let&rsquo;s say. You run this service on 3 nodes ( you need 3 at least for high availability, no less ) You get concerned that with increasing traffic to this service the CPU starts to go above 89-90%.
+What are your options ?]]></description>
+</item>
+<item>
+    <title>On writing code</title>
+    <link>http://localhost:8080/posts/on-writing-code/</link>
+    <pubDate>Sun, 20 Feb 2022 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/on-writing-code/</guid>
+    <description><![CDATA[If you work as a developer in a big company today, you know the agile process of having stories that you work on, and have to deliver code during the sprint. Hopefully by the end of the sprint you can also demo the working feature
+This style kind of assumes that you will write the code fully fleshed out in one go, and be done with it.
+Writing code is not a mechanistic activity where you turn clear specifications into code.]]></description>
+</item>
+<item>
+    <title>Pure Functional Stream processing in Scala [2]</title>
+    <link>http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/</link>
+    <pubDate>Sun, 14 Feb 2021 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/</guid>
+    <description><![CDATA[In the last post, we saw how to combine pure functions running in IO and Akka streams using .mapAsync and .unsafeToFuture
+val source: Source[String, NotUsed] = ??? val sink: Sink[Int, NotUsed] = ??? def pureFunction[F[_]](s: String): F[Int] = ??? source .mapAsync(parallelism = 8)(m =&gt; pureFunction[IO](m).unsafeToFuture()) .runWith(sink) In order to make it easier to work with IO in Akka Streams, we can write some helpers to add a method on Streams that automatically run the IO inside the flow.]]></description>
+</item>
+<item>
+    <title>Pure Functional Stream processing in Scala [1]</title>
+    <link>http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/</link>
+    <pubDate>Sat, 06 Feb 2021 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/</guid>
+    <description><![CDATA[In Scala you can write pure functional code, similar to Haskell or other pure functional languages, but you’re not obligated to. Wikipedia categories Scala as an impure Functional language.
+FP purists view this as a weakness of Scala, but others view the option of “cheating” pureness as an acceptable choice sometimes. Even if you can do everything purely, it’s sometimes a lot easier to think about the problem in a different paradigm.]]></description>
+</item>
+<item>
+    <title>Sleep better with Raspberry Pi automated white noise</title>
+    <link>http://localhost:8080/posts/rpi-white-noise/</link>
+    <pubDate>Sun, 31 Jan 2021 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/rpi-white-noise/</guid>
+    <description><![CDATA[Theory Having complete silence while you sleep 😴 may seem nice, but in fact can lead to trouble if the outside environment is not also completely quiet.
+A cat may meow🐱, a car may honk 🚗, your upstairs neighbour can wake up for a late-night snack 🍟… All these sounds will seem louder if your room is completely quiet.
+The human perception of sound is nonlinear. That’s why it’s measured in decibels.]]></description>
+</item>
+</channel>
+</rss>

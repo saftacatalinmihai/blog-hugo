@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Microservice - Tag - </title>
+        <link>http://localhost:8080/tags/microservice/</link>
+        <description>Microservice - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</managingEditor>
+            <webMaster>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</webMaster><lastBuildDate>Sun, 12 Jun 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:8080/tags/microservice/" rel="self" type="application/rss+xml" /><item>
+    <title>Microservice scaling advantage?</title>
+    <link>http://localhost:8080/posts/is-independent-scaling-of-us-an-advantage/</link>
+    <pubDate>Sun, 12 Jun 2022 00:00:00 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/posts/is-independent-scaling-of-us-an-advantage/</guid>
+    <description><![CDATA[Let&rsquo;s say you have a service that runs a number of steps for it&rsquo;s business process. One of those steps consumes high CPU - something to do with cryptographic functions let&rsquo;s say. You run this service on 3 nodes ( you need 3 at least for high availability, no less ) You get concerned that with increasing traffic to this service the CPU starts to go above 89-90%.
+What are your options ?]]></description>
+</item>
+</channel>
+</rss>

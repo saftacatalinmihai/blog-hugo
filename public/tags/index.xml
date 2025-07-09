@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - </title>
+        <link>http://localhost:8080/tags/</link>
+        <description>Tags - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</managingEditor>
+            <webMaster>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</webMaster><lastBuildDate>Wed, 10 Jul 2024 12:44:58 &#43;0000</lastBuildDate><atom:link href="http://localhost:8080/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Scala</title>
+    <link>http://localhost:8080/tags/scala/</link>
+    <pubDate>Wed, 10 Jul 2024 12:44:58 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/scala/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Streaming</title>
+    <link>http://localhost:8080/tags/streaming/</link>
+    <pubDate>Wed, 10 Jul 2024 12:44:58 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/streaming/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Visual_programming</title>
+    <link>http://localhost:8080/tags/visual_programming/</link>
+    <pubDate>Wed, 10 Jul 2024 12:44:58 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/visual_programming/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Blog</title>
+    <link>http://localhost:8080/tags/blog/</link>
+    <pubDate>Tue, 04 Jul 2023 04:21:49 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/blog/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Codespaces</title>
+    <link>http://localhost:8080/tags/codespaces/</link>
+    <pubDate>Tue, 04 Jul 2023 04:21:49 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/codespaces/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Github</title>
+    <link>http://localhost:8080/tags/github/</link>
+    <pubDate>Tue, 04 Jul 2023 04:21:49 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/github/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Hugo</title>
+    <link>http://localhost:8080/tags/hugo/</link>
+    <pubDate>Tue, 04 Jul 2023 04:21:49 &#43;0000</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/hugo/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Akka</title>
+    <link>http://localhost:8080/tags/akka/</link>
+    <pubDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/akka/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Cats</title>
+    <link>http://localhost:8080/tags/cats/</link>
+    <pubDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/cats/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Idempotency</title>
+    <link>http://localhost:8080/tags/idempotency/</link>
+    <pubDate>Sat, 07 Jan 2023 13:39:16 &#43;0200</pubDate>
+    <author>Safta Catalin Mihai</author>
+    <guid>http://localhost:8080/tags/idempotency/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

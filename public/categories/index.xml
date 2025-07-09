@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - </title>
+        <link>http://localhost:8080/categories/</link>
+        <description>Categories - Category - </description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</managingEditor>
+            <webMaster>saftacatalinmihai@gmail.com (Safta Catalin Mihai)</webMaster><atom:link href="http://localhost:8080/categories/" rel="self" type="application/rss+xml" /></channel>
+</rss>

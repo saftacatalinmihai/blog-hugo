@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Pure Functional Stream processing in Scala [1] - </title><meta name="Description" content="Mihai Safta&#39;s blog - toughts about computing"><meta property="og:title" content="Pure Functional Stream processing in Scala [1]" />
+<meta property="og:description" content="In Scala you can write pure functional code, similar to Haskell or other pure functional languages, but you’re not obligated to. Wikipedia categories Scala as an impure Functional language.
+FP purists view this as a weakness of Scala, but others view the option of “cheating” pureness as an acceptable choice sometimes. Even if you can do everything purely, it’s sometimes a lot easier to think about the problem in a different paradigm." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" /><meta property="og:image" content="http://localhost:8080/ComponentErr-1.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2025-07-08T20:37:53+03:00" /><meta property="og:site_name" content="Mihai Safta" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:8080/ComponentErr-1.png" /><meta name="twitter:title" content="Pure Functional Stream processing in Scala [1]"/>
+<meta name="twitter:description" content="In Scala you can write pure functional code, similar to Haskell or other pure functional languages, but you’re not obligated to. Wikipedia categories Scala as an impure Functional language.
+FP purists view this as a weakness of Scala, but others view the option of “cheating” pureness as an acceptable choice sometimes. Even if you can do everything purely, it’s sometimes a lot easier to think about the problem in a different paradigm."/>
+<meta name="twitter:site" content="@mihaisafta_"/>
+<meta name="application-name" content="Mihai Safta">
+<meta name="apple-mobile-web-app-title" content="Mihai Safta"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" /><link rel="prev" href="http://localhost:8080/posts/rpi-white-noise/" /><link rel="next" href="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Pure Functional Stream processing in Scala [1]",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:8080\/posts\/pure-functional-stream-processing-in-scala-1\/"
+        },"genre": "posts","keywords": "scala, cats, akka","wordcount":  1667 ,
+        "url": "http:\/\/localhost:8080\/posts\/pure-functional-stream-processing-in-scala-1\/","datePublished": "2021-02-06T00:00:00+00:00","dateModified": "2025-07-08T20:37:53+03:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Safta Catalin Mihai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mihai Safta</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/tags/" title="Tags"> Tags </a><a class="menu-item" href="/about" title="About"> About </a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i> RSS </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder=" " id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mihai Safta</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder=" " id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/tags/" title="Tags">Tags</a><a class="menu-item" href="/about" title="About">About</a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i>RSS</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Pure Functional Stream processing in Scala [1]</h1><h2 class="single-subtitle">Cats and Akka – Part 1</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://mihai-safta.dev" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Safta Catalin Mihai</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-06">2021-02-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1667 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pure-functional-programming-in-scala">Pure Functional Programming in Scala</a></li>
+        <li><a href="#stream-processing-in-scala">Stream processing in Scala</a></li>
+        <li><a href="#combining-cats-and-akka">Combining Cats and Akka</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>In <a href="https://www.scala-lang.org/" target="_blank" rel="noopener noreffer ">Scala</a> you can write <a href="https://en.wikipedia.org/wiki/Purely_functional_programming" target="_blank" rel="noopener noreffer ">pure functional</a> code, similar to <a href="https://www.haskell.org/" target="_blank" rel="noopener noreffer ">Haskell</a> or other <a href="https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Pure" target="_blank" rel="noopener noreffer ">pure functional languages</a>, but you’re not obligated to. Wikipedia categories Scala as an impure Functional language.</p>
+<p>FP purists view this as a weakness of Scala, but others view the option of “cheating” pureness as an acceptable choice sometimes. Even if you can do everything purely, it’s sometimes a lot easier to think about the problem in a different paradigm.</p>
+<p>Pure FP is great for writing correct functions you can easily reason about in isolation and compose well with other pure functions. We can easily unit test them since pure functions only depend on their input arguments and always produce the same output for the same arguments – they are <a href="https://en.wikipedia.org/wiki/Referential_transparency" target="_blank" rel="noopener noreffer ">referentially transparent</a>.</p>
+<p>This allows the programmer and the <a href="https://en.wikipedia.org/wiki/Compiler" target="_blank" rel="noopener noreffer ">compiler</a> to reason about program behavior as a <a href="https://en.wikipedia.org/wiki/Rewrite_system" target="_blank" rel="noopener noreffer ">rewrite system</a>. This can help in proving <a href="https://en.wikipedia.org/wiki/Correctness_%28computer_science%29" target="_blank" rel="noopener noreffer ">correctness</a>, simplifying an <a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener noreffer ">algorithm</a>, help change code without breaking it, or <a href="https://en.wikipedia.org/wiki/Optimization_%28computer_science%29" target="_blank" rel="noopener noreffer ">optimizing</a> code through <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank" rel="noopener noreffer ">memoization</a>, <a href="https://en.wikipedia.org/wiki/Common_subexpression_elimination" target="_blank" rel="noopener noreffer ">common sub-expression elimination</a>, <a href="https://en.wikipedia.org/wiki/Lazy_evaluation" target="_blank" rel="noopener noreffer ">lazy evaluation</a>, or <a href="https://en.wikipedia.org/wiki/Parallelization" target="_blank" rel="noopener noreffer ">parallelization</a>.</p>
+<hr>
+<p>There are, however, other approaches to thinking about compossibility of programs.</p>
+<p>One such approach is to think of software components as <strong>black boxes running a process</strong>.<br>
+They have a variable number of <strong>input and output ports</strong> which have Types associated to them.<br>
+<strong>Messages pass asynchronously</strong> from component to component after linking their corresponding ports together (if the types match).<br>
+We specify the connections outside the components themselves.<br>
+This is the thinking behind <a href="https://en.wikipedia.org/wiki/Flow-based_programming" target="_blank" rel="noopener noreffer ">flow based programming</a>.<br>
+(This is also how microservices work at a larger scale)</p>
+<p>My view is that these two ways of thinking about composable programs are not mutually exclusive and they can work together in synergy. I will try to make this case by the end of this post.</p>
+<hr>
+<h3 id="pure-functional-programming-in-scala">Pure Functional Programming in Scala</h3>
+<p>Using <a href="https://typelevel.org/cats/" target="_blank" rel="noopener noreffer ">Cats</a>, you can use <a href="https://en.wikipedia.org/wiki/Type_class" target="_blank" rel="noopener noreffer ">Type Classes</a>: Functor, Applicative, Monad etc… to model your programs based on these highly general computational abstractions.<br>
+There are <a href="https://stackoverflow.com/questions/56868566/making-sense-of-scala-fp-libraries" target="_blank" rel="noopener noreffer ">other ecosystems</a> for pure FP in Scala. I chose Cats because I’m most familiar with it.</p>
+<p>Adding <a href="https://typelevel.org/cats-effect/" target="_blank" rel="noopener noreffer ">Cats-effect</a>, you can also model <a href="https://typelevel.org/cats-effect/datatypes/io.html" target="_blank" rel="noopener noreffer ">IO</a> in a pure functional way. The idea is to write the entire program, including all the effects like: calling external services, writing to file, pushing messages to queues, as a single composed expression that returns an IO data structure representing the action of running all these effects, without actually running them. You only execute them at the “end of the world” in the “main” method.</p>
+<p>This is a simple example of a pure functional program using cats-effect.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">cats.effect.</span><span class="o">{</span> <span class="nc">IO</span><span class="o">,</span> <span class="nc">Sync</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">cats.implicits._</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">scala.io.StdIn</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">object</span> <span class="nc">App</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">getUserName</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">]</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">_</span>    <span class="k">&lt;-</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">&#34;What&#39;s your name?&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">name</span> <span class="k">&lt;-</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">delay</span><span class="o">(</span><span class="nc">StdIn</span><span class="o">.</span><span class="n">readLine</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">yield</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">greatUser</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">s&#34;Hello </span><span class="si">$name</span><span class="s">!&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">program</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">]</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="k">&lt;-</span> <span class="n">getUserName</span>
+</span></span><span class="line"><span class="cl">    <span class="k">_</span>    <span class="k">&lt;-</span> <span class="n">greatUser</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">yield</span> <span class="s">s&#34;Greeted </span><span class="si">$name</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">program</span><span class="o">[</span><span class="kt">IO</span><span class="o">].</span><span class="n">unsafeRunSync</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>Real programs will, of course, be much more complex, but it all boils down to a single IO value that combines all the effects of running the program which we execute in the “main” method.</p>
+<p>Runar has a great <a href="https://www.youtube.com/watch?v=GqmsQeSzMdw" target="_blank" rel="noopener noreffer ">talk</a> where he compares using pure FP and IO as working with <strong>unexploded</strong> TNT. That is much easier to work with as opposed to working with exploded TNT (by actually executing effects in each function).</p>
+<h3 id="stream-processing-in-scala">Stream processing in Scala</h3>
+<p><a href="https://doc.akka.io/docs/akka/current/stream/stream-introduction.html" target="_blank" rel="noopener noreffer ">Akka Streams</a> implements the <a href="https://www.reactive-streams.org/" target="_blank" rel="noopener noreffer ">Reactive Streams</a> protocol that’s now standardised in the JVM ecosystem.</p>
+<p>Streams have added benefits over simple functions by implementing flow control mechanisms which include <a href="https://www.reactivemanifesto.org/glossary#Back-Pressure" target="_blank" rel="noopener noreffer ">back-pressure</a>.</p>
+<p>You can think of streams as managed functions, similar to how the Operating System manages threads.</p>
+<p>A stream component can decide when to ask for more input messages to pass to its processing function, how many parallel calls to the function to allow, and whether to slow down processing because there is no demand from downstream functions.</p>
+<p>Akka is using the abstractions of Source, Flow, Sink for modeling streams.</p>
+<figure><img src="/SourceFlowSink-4.png"
+         alt="source-flow-sink"/><figcaption>
+            <h4>Source via Flow to Sink</h4>
+        </figcaption>
+</figure>
+
+<p>A Source is a Component that has one output port and generates elements of some type.<br>
+A Sink is a Component that has a single input port that consumes elements of some type.</p>
+<p>A Flow is a combination of a Sink and a Source having a single input and single output port. We can think of a Flow as a processor transforming a message into another.</p>
+<p>A big difference from normal functions is that the number of input messages does not have to match the number of output messages…</p>
+<p>For instance, a Flow can consume 1 input messages but produce 2 output messages (or none). In that sense, Flows differs greatly from functions – which will always produce an object of its return type given input arguments (assuming it throws no exceptions. For pure functions this should hold).</p>
+<p>Those are the simplest components, but we can write more complex ones. For instance – components having a single input port but two output ports.</p>
+<p>I like to model failure in components like this: I use the first output port as the normal (success) output, and the second one as the error output. For a single input, only one of the output ports yield a message.</p>
+<figure><img src="/ComponentErr-1.png"
+         alt="component-error"/><figcaption>
+            <h4>Component with explicit Error output</h4>
+        </figcaption>
+</figure>
+
+<p>What I like about Akka Streams is the ability to compose components using the Graph DSL. The way you write code can be very intuitive, as it’s almost a one-to-one match with drawing boxes and links between them. Architects and devs are quite familiar with this way of thinking, so it seems very natural.</p>
+<p>Here’s an example of using Graph DSL to write a complex stream.
+(The code and graph image representation are from the <a href="https://doc.akka.io/docs/akka/current/stream/stream-composition.html" target="_blank" rel="noopener noreffer ">Akka Streams documentation</a>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">GraphDSL.Implicits._</span>
+</span></span><span class="line"><span class="cl"><span class="nc">RunnableGraph</span><span class="o">.</span><span class="n">fromGraph</span><span class="o">(</span><span class="nc">GraphDSL</span><span class="o">.</span><span class="n">create</span><span class="o">()</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">builder</span> <span class="k">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">A</span><span class="k">:</span> <span class="kt">Outlet</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>                  <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Source</span><span class="o">.</span><span class="n">single</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="n">out</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">B</span><span class="k">:</span> <span class="kt">UniformFanOutShape</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Broadcast</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">C</span><span class="k">:</span> <span class="kt">UniformFanInShape</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span>  <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Merge</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">D</span><span class="k">:</span> <span class="kt">FlowShape</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span>          <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Flow</span><span class="o">[</span><span class="kt">Int</span><span class="o">].</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="mi">1</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">E</span><span class="k">:</span> <span class="kt">UniformFanOutShape</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Balance</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">F</span><span class="k">:</span> <span class="kt">UniformFanInShape</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span>  <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Merge</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="mi">2</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">val</span> <span class="n">G</span><span class="k">:</span> <span class="kt">Inlet</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span>                   <span class="k">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)).</span><span class="n">in</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">C</span>     <span class="o">&lt;~</span>      <span class="n">F</span>
+</span></span><span class="line"><span class="cl">  <span class="n">A</span>  <span class="o">~&gt;</span>  <span class="n">B</span>  <span class="o">~&gt;</span>  <span class="n">C</span>     <span class="o">~&gt;</span>      <span class="n">F</span>
+</span></span><span class="line"><span class="cl">         <span class="n">B</span>  <span class="o">~&gt;</span>  <span class="n">D</span>  <span class="o">~&gt;</span>  <span class="n">E</span>  <span class="o">~&gt;</span>  <span class="n">F</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">E</span>  <span class="o">~&gt;</span>  <span class="n">G</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">ClosedShape</span>
+</span></span><span class="line"><span class="cl"><span class="o">})</span>
+</span></span></code></pre></div><figure><img src="/compose_graph.png"
+         alt="graph_representation"/><figcaption>
+            <h4>Graph representation</h4>
+        </figcaption>
+</figure>
+
+<p>Other stream processing frameworks in Scala like <a href="https://github.com/typelevel/fs2" target="_blank" rel="noopener noreffer ">fs2</a> don’t have such DSL’s, and it may be difficult to write certain kinds of flows.</p>
+<p>For instance, if you have a loop from a downstream component to an upstream one, we can easily model this with Akka Graph DSL but not as easily with fs2.</p>
+<h3 id="combining-cats-and-akka">Combining Cats and Akka</h3>
+<p>The Idea is simple: use pure functions to write all the business code and effects (like external system calls, db calls etc…) in <strong>IO</strong> using Cats and Cats Effect.</p>
+<p>I’ll add some Case Classes and mocked functions so we have something to work with in the examples below:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">def</span> <span class="n">parseMessage</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Message</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="n">delay</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="sc">&#39;|&#39;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">split</span> <span class="k">=&gt;</span> <span class="nc">Message</span><span class="o">(</span><span class="n">id</span> <span class="k">=</span> <span class="n">split</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">userId</span> <span class="k">=</span> <span class="n">split</span><span class="o">(</span><span class="mi">1</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">getUser</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">userId</span> <span class="o">==</span> <span class="s">&#34;123&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">pure</span><span class="o">(</span><span class="nc">User</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="s">&#34;Mihai&#34;</span><span class="o">,</span> <span class="s">&#34;me@mihaisafta.com&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">pure</span><span class="o">(</span><span class="nc">User</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="s">&#34;John&#34;</span><span class="o">,</span> <span class="s">&#34;John@example.com&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">checkPermission</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="k">match</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="s">&#34;Mihai&#34;</span> <span class="k">=&gt;</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">pure</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">pure</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">sendNewsletter</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">nl</span> <span class="k">&lt;-</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">pure</span><span class="o">(</span><span class="nc">NewsLetter</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">,</span> <span class="s">&#34;Hello, this is the newsletter&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">_</span>  <span class="k">&lt;-</span> <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">s&#34;Sent newsletter: </span><span class="si">$nl</span><span class="s"> to user </span><span class="si">$user</span><span class="s">&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">yield</span> <span class="o">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">user</span><span class="k">:</span> <span class="kt">User</span><span class="o">,</span> <span class="n">userPermission</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">userPermission</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sendNewsletter</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Sync</span><span class="o">[</span><span class="kt">F</span><span class="o">].</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">s&#34;Not sending newsletter to </span><span class="si">$user</span><span class="s">&#34;</span><span class="o">))</span>
+</span></span></code></pre></div><p>We could write a pure FP program to run these steps sequentially</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">program</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:</span> <span class="kt">Sync</span><span class="o">](</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span>      <span class="k">&lt;-</span> <span class="n">parseMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user</span>         <span class="k">&lt;-</span> <span class="n">getUser</span><span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="n">userId</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">allowsEmails</span> <span class="k">&lt;-</span> <span class="n">checkPermission</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">_</span>            <span class="k">&lt;-</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="n">allowsEmails</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">yield</span> <span class="o">()</span>
+</span></span></code></pre></div><p>But now let’s see how we could wrap each step using Akka Streams.</p>
+<p>Since Akka Streams can’t work in a purely functional style, we have to execute the effects of the operation in each part of the flow… we can’t remain in the pure functional programing style of constructing a single IO and running it only once. We are moving from the pure FP world into the Flow Based Programming World.</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="nc">Source</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">&#34;1|123&#34;</span><span class="o">,</span> <span class="s">&#34;2|123&#34;</span><span class="o">,</span> <span class="s">&#34;3|789&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">parseMessage</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">m</span> <span class="k">=&gt;</span> <span class="n">getUser</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">m</span><span class="o">.</span><span class="n">userId</span><span class="o">).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)(</span><span class="n">u</span> <span class="k">=&gt;</span> <span class="n">checkPermission</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">p</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)).</span><span class="n">unsafeToFuture</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">8</span><span class="o">)</span> <span class="o">{</span> <span class="k">case</span> <span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sendNewsletterIfAllowed</span><span class="o">[</span><span class="kt">IO</span><span class="o">](</span><span class="n">u</span><span class="o">,</span> <span class="n">p</span><span class="o">)</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">seq</span><span class="o">)</span>
+</span></span></code></pre></div><p>Notice that we have to call the <code>.unsafeToFuture()</code> method in each <code>.mapAsyncUnordered</code> step.</p>
+<p>I think of it like each step in the stream is a “main” program itself.<br>
+Just like how the OS manages your processes and threads, here the stream manages your pure functions. We only use the stream for wrapping functions, sending messages through the sequence of wrapped functions and applying flow control.<br>
+Not for domain logic, which we write only in pure functions.</p>
+<p>Using parallelism set to 8 means that each step can process 8 messages in parallel without blocking the upstream steps.</p>
+<p>If the “sendNewsletter” call is slow, it will create back-pressure up the chain until it reaches the Source which will stop sending more messages until there is demand again.</p>
+<p>Back-pressure is a key benefit of streaming.<br>
+It guarantees that fast producers don’t overwhelm slow consumers, which could lead to issues from degraded performance to crashes caused by out of memory exceptions.</p>
+<p>Without streaming technology, you need to implement back-pressure yourself to get the same guarantees… Pure FP or even Actor based systems don’t have that built in.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>This is the first part in a series of post where I explore how to connect pure functional programming using Cats and Streaming with Akka Streams.</p>
+<p>So far we’ve seen that you can write pure functions and embed them in Akka streams using <code>.mapAsync</code>. You also have to run the effects inside each step using <code>.unsafeToFuture</code></p>
+<p>In the next parts we’ll see how to simplify the interaction between pure functions and Akka stream – by abstracting the need to call <code>.unsafeToFuture</code> every time.
+Also, we’ll construct more complex component and use the Akka GraphDSL to combine them in interesting ways.</p>
+<p>Hope this helps 😀</p>
+<p>Please leave comments or suggestions on <a href="https://www.reddit.com/r/scala/comments/lekc2k/pure_functional_stream_processing_in_scala_cats/" target="_blank" rel="noopener noreffer ">this Reddit thread</a>, and get in touch with me on <a href="https://twitter.com/mihaisafta_" target="_blank" rel="noopener noreffer ">Twitter</a>.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-07-08&nbsp;<a class="git-hash" href="https://github.com/saftacatalinmihai/blog-hugo/commit/435b7bcc9010b7577656e3a588f117c02d505ffb" target="_blank" title="commit by Safta Catalin Mihai(saftacatalinmihai@gmail.com) 435b7bcc9010b7577656e3a588f117c02d505ffb: Update computer.md">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>435b7bc</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" data-title="Pure Functional Stream processing in Scala [1]" data-via="mihaisafta_" data-hashtags="scala,cats,akka"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" data-hashtag="scala"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/" data-title="Pure Functional Stream processing in Scala [1]"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:8080/posts/pure-functional-stream-processing-in-scala-1/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/scala/">Scala</a>,&nbsp;<a href="/tags/cats/">Cats</a>,&nbsp;<a href="/tags/akka/">Akka</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/rpi-white-noise/" class="prev" rel="prev" title="Sleep better with Raspberry Pi automated white noise"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Sleep better with Raspberry Pi automated white noise</a>
+            <a href="/posts/pure-functional-stream-processing-in-scala-2/" class="next" rel="next" title="Pure Functional Stream processing in Scala [2]">Pure Functional Stream processing in Scala [2]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><div hidden><a rel="me" href="https://fosstodon.org/@mihaisafta">Mastodon</a></div></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://mihai-safta.dev" target="_blank">Safta Catalin Mihai</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

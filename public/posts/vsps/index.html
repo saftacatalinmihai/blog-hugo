@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Visual Stream Processing System - </title><meta name="Description" content="Mihai Safta&#39;s blog - toughts about computing"><meta property="og:title" content="Visual Stream Processing System" />
+<meta property="og:description" content="Add I&rsquo;ve added a new tldraw tool called Stream Component (left-most icon: &lt;/&gt; in the toolbar, shortcut key S). You can click or draw a rectangle to add a stream component to the canvas.
+The component is not initialized at first - you need to select the component type from the drop-down menu. This UI will be improved to allow more discoverability, show descriptions of components, etc.
+After selecting the component type, it will be initialized (started in the backend) and begin running immediately, waiting for inputs on its input port(s)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:8080/posts/vsps/" /><meta property="og:image" content="http://localhost:8080/profile.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-07-10T12:44:58+00:00" />
+<meta property="article:modified_time" content="2025-07-08T20:37:53+03:00" /><meta property="og:site_name" content="Mihai Safta" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:8080/profile.jpeg" /><meta name="twitter:title" content="Visual Stream Processing System"/>
+<meta name="twitter:description" content="Add I&rsquo;ve added a new tldraw tool called Stream Component (left-most icon: &lt;/&gt; in the toolbar, shortcut key S). You can click or draw a rectangle to add a stream component to the canvas.
+The component is not initialized at first - you need to select the component type from the drop-down menu. This UI will be improved to allow more discoverability, show descriptions of components, etc.
+After selecting the component type, it will be initialized (started in the backend) and begin running immediately, waiting for inputs on its input port(s)."/>
+<meta name="twitter:site" content="@mihaisafta_"/>
+<meta name="application-name" content="Mihai Safta">
+<meta name="apple-mobile-web-app-title" content="Mihai Safta"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:8080/posts/vsps/" /><link rel="prev" href="http://localhost:8080/posts/talks-every-developer-should-watch/" /><link rel="next" href="http://localhost:8080/posts/computer/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Visual Stream Processing System",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:8080\/posts\/vsps\/"
+        },"genre": "posts","keywords": "scala, streaming, visual_programming","wordcount":  760 ,
+        "url": "http:\/\/localhost:8080\/posts\/vsps\/","datePublished": "2024-07-10T12:44:58+00:00","dateModified": "2025-07-08T20:37:53+03:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Safta Catalin Mihai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mihai Safta</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/tags/" title="Tags"> Tags </a><a class="menu-item" href="/about" title="About"> About </a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i> RSS </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder=" " id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mihai Safta</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder=" " id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/tags/" title="Tags">Tags</a><a class="menu-item" href="/about" title="About">About</a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i>RSS</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Visual Stream Processing System</h1><h2 class="single-subtitle">Drawing Programs</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://mihai-safta.dev" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Safta Catalin Mihai</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-10">2024-07-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;760 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#add">Add</a></li>
+    <li><a href="#connect">Connect</a>
+      <ul>
+        <li><a href="#type-check-on-connect">Type check on connect</a></li>
+      </ul>
+    </li>
+    <li><a href="#edit">Edit</a></li>
+    <li><a href="#logs">Logs</a></li>
+    <li><a href="#proof-of-concept-fibonacci">Proof of concept: Fibonacci</a></li>
+    <li><a href="#whats-the-big-idea-anyway">What&rsquo;s the big idea, anyway?</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="add">Add</h2>
+<p><figure><img src="/vsps_add.gif"
+         alt="add"/>
+</figure>
+
+I&rsquo;ve added a new <a href="https://www.tldraw.com/" target="_blank" rel="noopener noreffer ">tldraw</a> tool called <code>Stream Component</code> (left-most icon: <code>&lt;/&gt;</code> in the toolbar, shortcut key <code>S</code>). You can click or draw a rectangle to add a stream component to the canvas.</p>
+<p>The component is not initialized at first - you need to select the component type from the drop-down menu. This UI will be improved to allow more discoverability, show descriptions of components, etc.</p>
+<p>After selecting the component type, it will be initialized (started in the backend) and begin running immediately, waiting for inputs on its input port(s). There is no separate step for starting the component; it is always running.</p>
+<p>I want the designer to have the feeling of working with regular drawings - so normal actions like moving, resizing, deleting, copying, pasting, undo, redo, etc., should work as expected.</p>
+<h2 id="connect">Connect</h2>
+<p><figure><img src="/vsps_connect.gif"
+         alt="connect"/>
+</figure>
+
+You can connect two components by adding arrows from an output port to an input port using regular tldraw arrows.</p>
+<h3 id="type-check-on-connect">Type check on connect</h3>
+<p><figure><img src="/vsps_typecheck.gif"
+         alt="connect"/>
+</figure>
+
+The backend where the streaming components are started is a Scala program<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. This means that the connections between components can be type-checked. If the connection can be made, the arrow turns green; otherwise, it turns red.</p>
+<p>This can be an advantage over other visual programming systems that are usually dynamically typed.</p>
+<p>The system still allows the connection to be made, but you can expect a runtime error if the types are not compatible.
+I chose to allow a more dynamic feel and enable the designer to do whatever they want (allowing rough scribbles or <a href="https://www.todepond.com/wikiblogarden/scrappy-fiddles/sharing/normalising/live/" target="_blank" rel="noopener noreffer ">scrappy fiddles</a>),
+even if that means entering a temporary state where the types don&rsquo;t match.
+It is up to the designer to fix this later.</p>
+<h2 id="edit">Edit</h2>
+<p><figure><img src="/vsps_edit.gif"
+         alt="edit"/>
+</figure>
+
+The component&rsquo;s code can be edited in any text editor.
+I want to make it easy for the programmer to open the code directly from the canvas, so I added a context button that opens the code in a default editor.</p>
+<p>Currently, changing the code requires a restart of the backend - that is not ideal and will be improved.
+However, the restart only takes a few seconds, so it is not a significant issue for now.</p>
+<h2 id="logs">Logs</h2>
+<p><figure><img src="https://s10.gifyu.com/images/StqmJ.gif"
+         alt="logs"/>
+</figure>
+
+Instead of adding a custom view for showing logs, I decided to use an existing solution (ELK stack - ElasticSearch, Logstash, Kibana) and embed it in the tool.
+After all, tldraw allows embedding of any web content with iframes.</p>
+<h2 id="proof-of-concept-fibonacci">Proof of concept: Fibonacci</h2>
+<p><figure><img src="https://s10.gifyu.com/images/StqmP.gif"
+         alt="fibonacci"/>
+</figure>
+
+This is a simple example of a Fibonacci stream component. It generates the Fibonacci sequence and prints it.</p>
+<h2 id="whats-the-big-idea-anyway">What&rsquo;s the big idea, anyway?</h2>
+<p><figure><img src="https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/8a0902c12ee0ae61a9e61f035015ca2419b7a50f1d8d8eab34d735c9a64f58cf_1.jpg"
+         alt="draw-an-owl"/>
+</figure>
+
+This image depicts how much of software is built today. Someone - architect, designer, senior dev - starts by drawing some diagrams.
+These are representations of what the code for an application should do, not the actual code.</p>
+<p>Then developers take those diagrams and start implementing code. Most of the time, the diagrams become outdated as new information comes along.</p>
+<h6 id="what-if-the-diagram-can-start-as-a-sketch-but-can-be-gradually-filled-out-with-the-actual-implemented-code">What if the diagram can start as a sketch, but can be gradually &ldquo;filled out&rdquo; with the actual implemented code?</h6>
+<p>And at the same time, the diagram can be run as a program.</p>
+<p>This is the idea behind Visual Stream Processing System (VSPS).</p>
+<p>I&rsquo;m trying to capture a feeling I have when developing streaming applications.
+I usually start with a high-level component graph (using <a href="https://pekko.apache.org/docs/pekko/current///stream/stream-graphs.html" target="_blank" rel="noopener noreffer ">Pekko Graph DSL</a>).
+The components are just mocks - only the types are defined, but the graph actually runs.
+Then I start implementing the components one by one, slowly filling out the graph with actual code, and refactoring the shape as I gather new information about what I actually need to build.
+The implementation also guides the graph design by surfacing some paths I haven&rsquo;t thought of before - especially error cases, edge cases, etc.
+But I always have a running system, even if it is not fully implemented.</p>
+<p>At the same time I want to combine this with the feeling of freedom and speed of drawing diagrams like I do for my day job as a software architect.
+I work a lot with DrawIO and I like having the ability to quickly iterate, duplicate parts of the diagram, mix and match various ideas to show competing options for designs.
+I want to be able to do the same but with real, running software.</p>
+<p>This is a highly experimental project that I&rsquo;ve been working on in my (very limited) spare time, but I think it has potential.</p>
+<p>If you are interested in this project, please reach out to me. I would love to hear your thoughts on it.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Pekko <a href="https://pekko.apache.org/docs/pekko/current/stream/" target="_blank" rel="noopener noreffer ">Streams</a> to be precise&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-07-08&nbsp;<a class="git-hash" href="https://github.com/saftacatalinmihai/blog-hugo/commit/435b7bcc9010b7577656e3a588f117c02d505ffb" target="_blank" title="commit by Safta Catalin Mihai(saftacatalinmihai@gmail.com) 435b7bcc9010b7577656e3a588f117c02d505ffb: Update computer.md">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>435b7bc</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:8080/posts/vsps/" data-title="Visual Stream Processing System" data-via="mihaisafta_" data-hashtags="scala,streaming,visual_programming"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:8080/posts/vsps/" data-hashtag="scala"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:8080/posts/vsps/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:8080/posts/vsps/" data-title="Visual Stream Processing System"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:8080/posts/vsps/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/scala/">Scala</a>,&nbsp;<a href="/tags/streaming/">Streaming</a>,&nbsp;<a href="/tags/visual_programming/">Visual_programming</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/talks-every-developer-should-watch/" class="prev" rel="prev" title="7 Essential Tech Talks Every Developer Should Watch"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>7 Essential Tech Talks Every Developer Should Watch</a>
+            <a href="/posts/computer/" class="next" rel="next" title="Computer">Computer<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><div hidden><a rel="me" href="https://fosstodon.org/@mihaisafta">Mastodon</a></div></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://mihai-safta.dev" target="_blank">Safta Catalin Mihai</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

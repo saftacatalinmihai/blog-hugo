@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Computer - </title><meta name="Description" content="Mihai Safta&#39;s blog - toughts about computing"><meta property="og:title" content="Computer" />
+<meta property="og:description" content="🖖 Re-Creating Star Trek&rsquo;s LCARS Computer With Modern LLMs A hands-on experiment in autonomous tool-building agents
+Imagine walking into your home and saying, &ldquo;Computer, show me when I last watered the plants and remind me to buy groceries.&rdquo; No app switching, no hunting through interfaces, no remembering which service stores what data. Just a conversation with your digital assistant that understands context, remembers everything, and can act on your behalf." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:8080/posts/computer/" /><meta property="og:image" content="http://localhost:8080/profile.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-07-08T18:01:06+03:00" />
+<meta property="article:modified_time" content="2025-07-08T20:37:53+03:00" /><meta property="og:site_name" content="Mihai Safta" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:8080/profile.jpeg" /><meta name="twitter:title" content="Computer"/>
+<meta name="twitter:description" content="🖖 Re-Creating Star Trek&rsquo;s LCARS Computer With Modern LLMs A hands-on experiment in autonomous tool-building agents
+Imagine walking into your home and saying, &ldquo;Computer, show me when I last watered the plants and remind me to buy groceries.&rdquo; No app switching, no hunting through interfaces, no remembering which service stores what data. Just a conversation with your digital assistant that understands context, remembers everything, and can act on your behalf."/>
+<meta name="twitter:site" content="@mihaisafta_"/>
+<meta name="application-name" content="Mihai Safta">
+<meta name="apple-mobile-web-app-title" content="Mihai Safta"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:8080/posts/computer/" /><link rel="prev" href="http://localhost:8080/posts/vsps/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Computer",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:8080\/posts\/computer\/"
+        },"genre": "posts","wordcount":  3722 ,
+        "url": "http:\/\/localhost:8080\/posts\/computer\/","datePublished": "2025-07-08T18:01:06+03:00","dateModified": "2025-07-08T20:37:53+03:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Safta Catalin Mihai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mihai Safta</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/tags/" title="Tags"> Tags </a><a class="menu-item" href="/about" title="About"> About </a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i> RSS </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder=" " id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mihai Safta</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder=" " id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/tags/" title="Tags">Tags</a><a class="menu-item" href="/about" title="About">About</a><a class="menu-item" href="/index.xml" title="RSS"><i class='fa-solid fa-square-rss'></i>RSS</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Computer</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://mihai-safta.dev" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Safta Catalin Mihai</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-07-08">2025-07-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3722 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;18 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#-re-creating-star-treks-lcars-computer-with-modern-llms">🖖 Re-Creating Star Trek&rsquo;s LCARS Computer With Modern LLMs</a>
+      <ul>
+        <li><a href="#1--why-lcars">1 · Why LCARS?</a></li>
+        <li><a href="#2--beyond-science-fiction-replacing-everyday-apps">2 · Beyond Science Fiction: Replacing Everyday Apps</a></li>
+        <li><a href="#3--architecture-at-a-glance">3 · Architecture at a Glance</a></li>
+        <li><a href="#4--how-tools-work">4 · How Tools Work</a></li>
+        <li><a href="#5--llm-prompt-engineering">5 · LLM Prompt Engineering</a></li>
+        <li><a href="#6--self-modification-capabilities">6 · Self-Modification Capabilities</a></li>
+        <li><a href="#7--multiple-interfaces">7 · Multiple Interfaces</a></li>
+        <li><a href="#8--evolution-through-versions">8 · Evolution Through Versions</a></li>
+        <li><a href="#9--real-world-applications-the-crud-app-replacement-showcase">9 · Real-World Applications: The CRUD App Replacement Showcase</a></li>
+        <li><a href="#10--why-one-system-beats-many-apps">10 · Why One System Beats Many Apps</a></li>
+        <li><a href="#11--challenges-and-next-steps">11 · Challenges and Next Steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#-takeaways">☑️ Takeaways</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="-re-creating-star-treks-lcars-computer-with-modern-llms">🖖 Re-Creating Star Trek&rsquo;s LCARS Computer With Modern LLMs</h2>
+<p><em>A hands-on experiment in autonomous tool-building agents</em></p>
+<p>Imagine walking into your home and saying, &ldquo;Computer, show me when I last watered the plants and remind me to buy groceries.&rdquo; No app switching, no hunting through interfaces, no remembering which service stores what data. Just a conversation with your digital assistant that understands context, remembers everything, and can act on your behalf.</p>
+<p>This isn&rsquo;t science fiction anymore—it&rsquo;s Tuesday afternoon in my living room.</p>
+<p>What started as a quest to recreate Star Trek&rsquo;s iconic LCARS computer has become something far more practical: a universal replacement for the dozens of specialized apps cluttering our digital lives. Like a Swiss Army knife for the smartphone age, this system demonstrates how the marriage of large language models and tool-calling APIs can transform the way we interact with technology.</p>
+<p>But the journey from starship computer to everyday assistant revealed something unexpected: the most powerful sci-fi technologies aren&rsquo;t the ones that dazzle with complexity, but those that disappear into the background, becoming as natural as conversation itself.</p>
+<h3 id="1--why-lcars">1 · Why LCARS?</h3>
+<p>For decades science-fiction fans have watched <a href="https://en.wikipedia.org/wiki/Star_Trek" target="_blank" rel="noopener noreffer ">Star Trek</a> officers converse with a ship-wide computer <a href="https://en.wikipedia.org/wiki/LCARS" target="_blank" rel="noopener noreffer ">LCARS</a> (&ldquo;Library Computer Access/Retrieval System&rdquo;). LCARS could:</p>
+<ul>
+<li>answer arbitrary questions by searching internal databases;</li>
+<li>execute real-world actions by routing commands to subsystems;</li>
+<li>politely say <strong>why</strong> it couldn&rsquo;t comply when limits were hit.</li>
+</ul>
+<p>In 2025, <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank" rel="noopener noreffer ">large language models (LLMs)</a> plus <a href="https://platform.openai.com/docs/guides/function-calling" target="_blank" rel="noopener noreffer ">tool-calling APIs</a> make that dream feel within reach. I decided to find out <em>how close</em> we can get—armed with <a href="https://replit.com/" target="_blank" rel="noopener noreffer ">Replit</a> dev env, and a <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreffer ">Postgres</a> instance.</p>
+<p>You can find the open source code here: <a href="https://github.com/saftacatalinmihai/Computer" target="_blank" rel="noopener noreffer ">https://github.com/saftacatalinmihai/Computer</a></p>
+<hr>
+<h3 id="2--beyond-science-fiction-replacing-everyday-apps">2 · Beyond Science Fiction: Replacing Everyday Apps</h3>
+<blockquote>
+<p><em>&ldquo;Computer, log wet diaper change for Stefan at 14:30.&rdquo;</em> — Me, talking to my watch instead of opening a baby tracker app</p>
+</blockquote>
+<p>While building this system, I discovered something unexpected: <strong>it&rsquo;s already replacing many specialized apps in my daily life</strong>. Like a universal translator that breaks down language barriers, this architecture dissolves the barriers between apps, creating a unified interface for all your digital needs.</p>
+<p>Think of it as the difference between having a Swiss Army knife versus carrying a separate tool for every task. The same conversational interface that lets LCARS control starship functions works surprisingly well for mundane tasks that would normally require dedicated applications.</p>
+<p>I find that it already can replace many apps like note-taking, journaling, baby tracker, food inventory&hellip; simple apps that are just CRUD apps for writing and reading from a database. It&rsquo;s like having a personal digital butler who knows where you keep everything and can fetch it on command.</p>
+<p>Consider how many apps on your phone are essentially just fancy interfaces for:</p>
+<ol>
+<li><strong>C</strong>reating records</li>
+<li><strong>R</strong>eading information back</li>
+<li><strong>U</strong>pdating existing data</li>
+<li><strong>D</strong>eleting things you no longer need</li>
+</ol>
+<p>This is known as <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener noreffer ">CRUD</a> - the four basic operations of persistent storage. Each app is like a specialized shopkeeper in a digital mall, each with its own storefront, its own rules, and its own way of organizing inventory.</p>
+<p>Each with its own account, learning curve, subscription fee, and data silo. What if one conversational interface could replace them all? What if, instead of visiting dozens of specialized shops, you could speak to one knowledgeable concierge who had access to everything?</p>
+<pre tabindex="0"><code>Captain&#39;s Log, Supplemental: The irony isn&#39;t lost on me that in trying to recreate 
+sci-fi technology from the future, I&#39;ve ended up replacing dozens of present-day 
+apps with something that feels both more advanced and more intuitive.
+</code></pre><hr>
+<h3 id="3--architecture-at-a-glance">3 · Architecture at a Glance</h3>
+<p>Like the Enterprise itself, this system is built on a modular architecture where each component serves a specific purpose, but they all work together seamlessly. Think of it as a digital starship where each deck has its own function, but they&rsquo;re all connected by the same communication network.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Purpose</th>
+<th>Starship Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LLM Clients</strong></td>
+<td>Natural-language &ldquo;brain&rdquo;</td>
+<td>The ship&rsquo;s computer core with multiple backup systems</td>
+</tr>
+<tr>
+<td><strong>Assistant Core</strong></td>
+<td>Conversation management</td>
+<td>The bridge crew, coordinating all operations</td>
+</tr>
+<tr>
+<td><strong>Tool Hub</strong></td>
+<td>Concrete implementations</td>
+<td>Engineering and science departments, each with specialized skills</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>Knowledge store</td>
+<td>The ship&rsquo;s library and data banks</td>
+</tr>
+<tr>
+<td><strong>Interfaces</strong></td>
+<td>User interaction</td>
+<td>Communication channels: viewscreen, comm badges, and terminals</td>
+</tr>
+<tr>
+<td><strong>Self-Modification</strong></td>
+<td>System evolution</td>
+<td>The ship&rsquo;s ability to adapt and upgrade its own systems</td>
+</tr>
+</tbody>
+</table>
+<p>This architecture is specifically designed to enable flexible CRUD operations through natural language. The database layer supports dynamic schema creation, while the LLM &ldquo;brain&rdquo; translates user intentions into appropriate database operations—much like how the universal translator converts alien languages into understandable speech.</p>
+<div class="mermaid">
+
+graph TD;
+    User[User] --> |Natural Language| Interfaces
+    subgraph Interfaces
+        CLI[Command-Line REPL]
+        Web[Web Interface]
+        Slack[Slack Bot]
+    end
+    Interfaces --> |Requests| Assistant
+    subgraph Assistant Core
+        V1[Assistant v1]
+        V2[Assistant v2]
+        V3[Assistant v3]
+        V4[Assistant v4]
+        Loader[Assistant Loader]
+    end
+    Assistant --> |Queries| LLM[LLM Clients]
+    LLM --> |Responses| Assistant
+    Assistant --> |Tool Calls| Tools
+    subgraph Tool Hub
+        SQL[SQL Operations]
+        Python[Python Execution]
+        ASCII[ASCII Art Generation]
+        Self[Self-Modification]
+    end
+    Tools --> |Results| Assistant
+    SQL --> DB
+    subgraph Database
+        SQLite[SQLite]
+        Postgres[PostgreSQL]
+    end
+
+</div>
+<hr>
+<h3 id="4--how-tools-work">4 · How Tools Work</h3>
+<p>Tools in this system work like skilled crew members on a starship—each one has a specific expertise, but they all speak the same language and follow the same protocols. When Captain Picard says &ldquo;Computer, show me all Federation ships in the Neutral Zone,&rdquo; the computer doesn&rsquo;t just magically know what to do. It breaks down the request, identifies the right databases to query, and formats the response appropriately.</p>
+<p>Our system works similarly, but for everyday tasks.</p>
+<ol>
+<li>
+<p><strong>Tool Implementation</strong>
+Each tool is a Python function in the <code>tools/</code> directory. The SQL tool is the heart of the CRUD functionality—think of it as the ship&rsquo;s librarian who knows exactly where every piece of information is stored and how to retrieve it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># From tools/sql.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run_sql</span><span class="p">(</span><span class="n">conn</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">sql_statements</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">column_names</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parsed_sql_list</span> <span class="o">=</span> <span class="n">parse_sql</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sql_statements</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">sql_statement</span> <span class="ow">in</span> <span class="n">parsed_sql_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="ow">not</span> <span class="n">sql_statement</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_statement</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">description</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">description</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">column_names</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Format and return results...</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">inner</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>System Prompt for SQL Tool</strong>
+The magic happens in the system prompt that guides the LLM—like Starfleet&rsquo;s Prime Directive, these instructions shape how the AI behaves in every interaction. Just as officers receive detailed briefings before away missions, the LLM gets comprehensive instructions on how to handle database operations:</p>
+<pre tabindex="0"><code>Tool: postgres_sql_run
+Description: Runs SQL against a Postgres database.
+Instructions:
+- You interact with a user who is not familiar with SQL.
+- Generate SQL code based on user requests. Keep it simple and use only Postgres-compatible features.
+- No multi-tenancy, user access control, complex data validation, or error handling beyond basic SQL.
+- For relative time (e.g., &#34;yesterday&#34;), use Postgres&#39;s relative time functions.
+- DO NOT insert sample or placeholder data. Only use data mentioned by the user.
+- After any DDL (CREATE, ALTER, DROP) or DML (INSERT, UPDATE, DELETE) statement, append a `SELECT * FROM table_name;` query for the modified table to show its new state.
+- Assume tables might contain data, but you don&#39;t know what it is. Your role is to generate SQL.
+- For querying, aim for broad matches (e.g., case-insensitive search if appropriate for the user&#39;s request).
+- Provide only the final, executable SQL code. No hypothetical examples.
+- If the schema seems insufficient for the user&#39;s request, include `CREATE TABLE` statements first, then the necessary DML.
+- The existing Postgres SQL Schema is: [CURRENT SCHEMA INJECTED HERE]
+</code></pre><p>This prompt is critical because it explicitly allows the LLM to <strong>create new tables and modify schemas</strong> when needed. It&rsquo;s like giving the ship&rsquo;s computer permission to create new database categories when it encounters previously unknown phenomena. The last instruction is particularly powerful: &ldquo;If the schema seems insufficient for the user&rsquo;s request, include <code>CREATE TABLE</code> statements first&hellip;&rdquo;</p>
+<p>This is where the system transcends traditional apps. Instead of being constrained by a fixed schema designed by someone else, the database grows organically like a living organism, adapting to your actual needs.</p>
+</li>
+<li>
+<p><strong>Tool Schema Definition</strong>
+The LLM needs to know how to call the tool, which is defined in a schema:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;function&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;function&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;postgres_sql_run&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Runs one or more SQL statements against a Postgres database and returns the result of the last query.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;parameters&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;sql_statements&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;A single string containing one or more SQL statements separated by semicolons.&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;required&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;sql_statements&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Call Flow with Schema Evolution</strong>
+When a user makes a request that requires new data storage, the system orchestrates a sophisticated dance between understanding, planning, and execution:</p>
+<p><em>User Request → LLM Analysis → Schema Evaluation → Table Creation/Modification → Data Operation → Response</em></p>
+<p>Picture this scenario: you walk into your living room and say, &ldquo;Computer, track that I watered my plants today.&rdquo; If no plant-tracking table exists, the system becomes like a helpful assistant who realizes you need a new filing system. It doesn&rsquo;t just fail—it adapts.</p>
+<p>The system will:</p>
+<ol>
+<li>Recognize the need for plant tracking (like a good assistant understanding your intent)</li>
+<li>Generate a <code>CREATE TABLE plants_watering(...)</code> statement (creating the filing system)</li>
+<li>Insert the watering record (filing the information)</li>
+<li>Return confirmation with the new table&rsquo;s state (showing you the organized result)</li>
+</ol>
+</li>
+</ol>
+<p>This dynamic schema evolution is what makes the system so powerful for CRUD app replacement. Unlike traditional apps with rigid schemas—like filing cabinets with fixed compartments—this approach lets the database structure evolve organically, like a personal assistant who creates new organizational systems as you need them.</p>
+<pre tabindex="0"><code>[Lieutenant Commander Data](https://en.wikipedia.org/wiki/Data_(Star_Trek)) would appreciate that the system can modify its own code,
+much like his own neural net&#39;s ability to create new pathways based on experience.
+</code></pre><hr>
+<h3 id="5--llm-prompt-engineering">5 · LLM Prompt Engineering</h3>
+<p>The system prompt is dynamically constructed with:</p>
+<ol>
+<li><strong>Persona Definition</strong>: Establishes the assistant&rsquo;s identity and capabilities</li>
+<li><strong>Tool Descriptions</strong>: Detailed information about available tools and their parameters</li>
+<li><strong>Database Schema</strong>: When using database tools, the schema is included for context</li>
+<li><strong>Conversation History</strong>: Previous interactions to maintain context</li>
+<li><strong>Special Instructions</strong>: Custom behavior guidelines based on the assistant version</li>
+</ol>
+<p>The prompt construction is version-specific, with each assistant version (v1-v4) having its own prompt engineering approach. This allows the system to evolve its interaction style and capabilities over time.</p>
+<p>For CRUD operations, including the current database schema in the prompt is essential. This gives the LLM awareness of existing tables and fields, allowing it to generate appropriate SQL for creating, reading, updating, or deleting records based on conversational requests.</p>
+<hr>
+<h3 id="6--self-modification-capabilities">6 · Self-Modification Capabilities</h3>
+<p>In the Star Trek universe, the most fascinating aspect of advanced computers isn&rsquo;t their computational power—it&rsquo;s their ability to learn, adapt, and evolve. Like Data&rsquo;s neural networks creating new pathways based on experience, this system can modify its own code and capabilities.</p>
+<p>The system can modify itself through a sophisticated self-awareness mechanism that would make any Federation engineer proud:</p>
+<ol>
+<li>
+<p><strong>Code Reading</strong>
+The assistant can read its own source code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Helper function to get current assistant code</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_current_assistant_code</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">   <span class="s2">&#34;&#34;&#34;Reads and returns the content of the current assistant.py file.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="sa">f</span><span class="s2">&#34;Critical Error: Could not read own source code at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="s2">&#34;# Error: Could not read assistant code. Self-update features will be impaired.&#34;</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Version Management</strong>
+When creating a new version, the system:</p>
+<ul>
+<li>Reads its current implementation</li>
+<li>Makes the requested modifications</li>
+<li>Saves as a new version with incremented number (e.g., <code>assistant_v4.py</code>)</li>
+<li>Updates the assistant loader to recognize the new version</li>
+</ul>
+</li>
+<li>
+<p><strong>Tool Addition</strong>
+New tools are added by:</p>
+<ul>
+<li>Creating a new tool file in the <code>tools/</code> directory</li>
+<li>Updating the assistant code to include the tool in its mapping</li>
+<li>Defining the tool&rsquo;s schema for the LLM</li>
+</ul>
+<p>This is implemented through special placeholders in the code:</p>
+<ul>
+<li><code>#&lt;TOOL_IMPORT&gt;</code> - Where to add new tool imports</li>
+<li><code>#&lt;TOOL_MAPPING&gt;</code> - Where to add new tool mappings</li>
+<li><code>#&lt;tool_schema&gt;</code> - Where to add new tool schemas</li>
+</ul>
+</li>
+</ol>
+<p>This self-modification capability is what makes the system truly extensible for CRUD app replacement. When I need a new type of app functionality, I can simply ask the system to create a new tool that handles that specific use case, rather than downloading yet another specialized app.</p>
+<pre tabindex="0"><code>&#34;Working.&#34; - The Computer, [Star Trek: The Next Generation](https://en.wikipedia.org/wiki/Star_Trek:_The_Next_Generation)
+</code></pre><hr>
+<h3 id="7--multiple-interfaces">7 · Multiple Interfaces</h3>
+<p>The system provides three distinct interfaces:</p>
+<ol>
+<li>
+<p><strong>Command-Line REPL (bot_repl.py)</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Interactive command-line interface</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;&gt; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">user_input</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&#34;exit&#34;</span><span class="p">,</span> <span class="s2">&#34;quit&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">assistant</span><span class="o">.</span><span class="n">process_message</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Web Interface (main.py)</strong>
+A Flask-based web application and API with:</p>
+<ul>
+<li>User authentication</li>
+<li>Conversation history</li>
+<li>Streaming responses</li>
+</ul>
+</li>
+<li>
+<p><strong>Slack Bot (bot_slack.py)</strong>
+Integration with Slack for team communication:</p>
+<ul>
+<li>Responds to direct messages</li>
+<li>Handles slash commands</li>
+<li>Supports threaded conversations</li>
+</ul>
+</li>
+</ol>
+<p>Having multiple interfaces means I can interact with my CRUD functionality from wherever is most convenient:</p>
+<ul>
+<li>Terminal when I&rsquo;m already working in the command line</li>
+<li>Web interface from any device with a browser</li>
+<li>Slack when collaborating with family or team members</li>
+</ul>
+<p>This multi-interface approach eliminates one of the biggest limitations of traditional apps: being locked into a single access method.</p>
+<hr>
+<h3 id="8--evolution-through-versions">8 · Evolution Through Versions</h3>
+<p>The system has evolved through multiple versions:</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Key Features Added</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v1</strong></td>
+<td>Basic conversation, SQLite support</td>
+</tr>
+<tr>
+<td><strong>v2</strong></td>
+<td>Tool execution, Python code evaluation</td>
+</tr>
+<tr>
+<td><strong>v3</strong></td>
+<td>Self-modification, improved error handling</td>
+</tr>
+<tr>
+<td><strong>v4</strong></td>
+<td>PostgreSQL support, ASCII art generation, enhanced self-modification</td>
+</tr>
+</tbody>
+</table>
+<p>Each version builds upon the previous one, with the <code>assistant_loader.py</code> module dynamically loading the appropriate version based on configuration or user request.</p>
+<p>This versioning approach allows:</p>
+<ul>
+<li>Stable reference points for development</li>
+<li>Ability to roll back if issues occur when new tools are added by the assistant and it breaks something.</li>
+<li>Clear tracking of capability evolution</li>
+<li>Testing new features without breaking existing functionality</li>
+</ul>
+<p>The progression from SQLite to PostgreSQL in particular has been crucial for CRUD app replacement, as it provides a stable DB in a managed cloud needed for daily from multiple entry points.</p>
+<hr>
+<h3 id="9--real-world-applications-the-crud-app-replacement-showcase">9 · Real-World Applications: The CRUD App Replacement Showcase</h3>
+<p>The true test of any technology isn&rsquo;t in the laboratory—it&rsquo;s in the messy, unpredictable reality of daily life. Like the Enterprise crew facing unexpected challenges that require creative solutions, this system has proven its worth in scenarios that would stump traditional apps.</p>
+<p>Beyond the technical implementation, this system has proven immediately useful for everyday tasks that benefit from structured data storage with natural language access. It&rsquo;s like having a skilled personal assistant who never forgets, never gets tired, and always knows exactly where to find what you need.</p>
+<h4 id="app-replacement-showcase">App Replacement Showcase</h4>
+<p>Consider the digital transformation in your pocket. Where once you might have juggled multiple apps like a circus performer keeping plates spinning, now you have a single, conversational interface that understands context and remembers everything.</p>
+<table>
+<thead>
+<tr>
+<th>Traditional App</th>
+<th>LCARS Implementation</th>
+<th>Key Advantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Note-taking App</strong></td>
+<td>&ldquo;Computer, note that I need to buy milk&rdquo;</td>
+<td>- Natural language input<!-- raw HTML omitted -->- No app switching<!-- raw HTML omitted -->- Automatic organization</td>
+</tr>
+<tr>
+<td><strong>Baby Tracker</strong></td>
+<td>&ldquo;Log diaper change for Stefan&rdquo;</td>
+<td>- Shared family access<!-- raw HTML omitted -->- Custom queries<!-- raw HTML omitted -->- No subscription fees</td>
+</tr>
+<tr>
+<td><strong>Food Inventory</strong></td>
+<td>&ldquo;Add milk to fridge, expires July 15&rdquo;</td>
+<td>- Voice input from anywhere<!-- raw HTML omitted -->- Expiration alerts<!-- raw HTML omitted -->- Shopping list integration</td>
+</tr>
+<tr>
+<td><strong>Journaling App</strong></td>
+<td>&ldquo;Computer, journal entry: today I&hellip;&rdquo;</td>
+<td>- Multi-modal entries<!-- raw HTML omitted -->- Searchable by content<!-- raw HTML omitted -->- Integrated with other data</td>
+</tr>
+<tr>
+<td><strong>Habit Tracker</strong></td>
+<td>&ldquo;Record 30 minutes of meditation&rdquo;</td>
+<td>- Natural reminders<!-- raw HTML omitted -->- Pattern analysis<!-- raw HTML omitted -->- No rigid templates</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-personal-activity-logging">1. <strong>Personal Activity Logging</strong></h4>
+<p>It&rsquo;s like having a digital memory palace that never forgets. Every interaction becomes a breadcrumb in a trail of personal data that you can query naturally:</p>
+<ul>
+<li><strong>Plant Care Tracking</strong>: Recording when plants were watered, with the ability to later ask &ldquo;When did I last water the plants?&rdquo;</li>
+<li><strong>Habit Tracking</strong>: Logging exercise, medication, or other recurring activities with natural language queries</li>
+</ul>
+<h4 id="2-baby-care-assistant">2. <strong>Baby Care Assistant</strong></h4>
+<p>New parents know the exhaustion of trying to remember feeding schedules, diaper changes, and sleep patterns. This system becomes like a wise grandmother who remembers everything and offers gentle reminders:</p>
+<ul>
+<li>Replacing specialized apps with simple natural language commands:
+<pre tabindex="0"><code>&gt; Recording wet diaper change for Stefan
+&gt; Starting sleep time for Stefan
+&gt; Stefan just finished feeding for 15 minutes
+</code></pre></li>
+<li>Later querying patterns: &ldquo;How many wet diapers today?&rdquo; or &ldquo;When was Stefan&rsquo;s last feeding?&rdquo;</li>
+</ul>
+<h4 id="3-household-management">3. <strong>Household Management</strong></h4>
+<p>Like the ship&rsquo;s computer tracking the status of every system on the Enterprise, this system can monitor the countless details of home management:</p>
+<ul>
+<li><strong>Inventory Tracking</strong>: &ldquo;Adding milk to fridge, expires on July 15th&rdquo;</li>
+<li><strong>Maintenance Records</strong>: &ldquo;Just changed the furnace filter&rdquo; with later queries like &ldquo;When was the furnace filter last changed?&rdquo;</li>
+</ul>
+<p>The system&rsquo;s key advantages in these scenarios mirror the benefits of having a ship&rsquo;s computer that knows every system, every crew member, and every mission detail:</p>
+<ul>
+<li><strong>Dynamic Schema Evolution</strong>: Like the ship&rsquo;s computer adapting to new alien technologies, the assistant can create new tables or modify existing ones based on conversation context</li>
+<li><strong>Database Transparency</strong>: Users can directly access the PostgreSQL database with standard clients for advanced queries—like having direct access to the ship&rsquo;s data banks when needed</li>
+<li><strong>Device Integration</strong>: Using the Web API with <a href="https://support.apple.com/guide/shortcuts/welcome/ios" target="_blank" rel="noopener noreffer ">Apple Shortcuts</a> enables voice interaction from any Apple device, including <a href="https://www.apple.com/watch/" target="_blank" rel="noopener noreffer ">Apple Watch</a>—your personal communicator badge</li>
+<li><strong>Conversational Interface</strong>: Natural language input/output eliminates the need to learn specialized app interfaces—speak to your computer the way you&rsquo;d speak to a colleague</li>
+</ul>
+<p>This practical utility demonstrates how the technical capabilities translate into real value for users, bridging the gap between science fiction and everyday convenience. It&rsquo;s the difference between having a tool that works for you versus having to work for your tools.</p>
+<pre tabindex="0"><code>Captain&#39;s Log: It&#39;s remarkable how quickly I&#39;ve abandoned specialized apps in favor of
+simply talking to my computer. The freedom from app-switching alone has saved me countless
+hours, not to mention the mental load of remembering which app contains which information.
+</code></pre><hr>
+<h3 id="10--why-one-system-beats-many-apps">10 · Why One System Beats Many Apps</h3>
+<p>In the original Star Trek series, the ship&rsquo;s computer wasn&rsquo;t a collection of separate programs—it was a unified intelligence that could connect information across all ship systems. This LCARS-inspired approach offers several advantages that mirror the benefits of having a single, omniscient digital assistant rather than a collection of specialized servants:</p>
+<ol>
+<li>
+<p><strong>Unified Data Store</strong>: All information lives in one database, enabling cross-domain queries like &ldquo;Show me all the days I exercised but didn&rsquo;t sleep well&rdquo;—connections that would be impossible when your fitness tracker and sleep app can&rsquo;t talk to each other</p>
+</li>
+<li>
+<p><strong>Consistent Interface</strong>: Learn one interaction pattern that works across all use cases, rather than navigating different UIs for each app. It&rsquo;s like having a universal translator for your digital life</p>
+</li>
+<li>
+<p><strong>No Context Switching</strong>: Eliminate the cognitive load of jumping between apps—just talk to your computer naturally, like having a conversation with a knowledgeable friend who remembers everything</p>
+</li>
+<li>
+<p><strong>Evolving Functionality</strong>: The system grows with your needs through self-modification, rather than waiting for app developers to add features. It&rsquo;s like having a technology that adapts to you, rather than requiring you to adapt to it</p>
+</li>
+<li>
+<p><strong>Privacy Control</strong>: Your data stays on your infrastructure, not spread across multiple third-party services like digital breadcrumbs scattered across the internet</p>
+</li>
+<li>
+<p><strong>Cost Efficiency</strong>: Replace multiple subscription services with a single self-hosted solution—like consolidating dozens of monthly bills into one</p>
+</li>
+<li>
+<p><strong>Custom Workflows</strong>: Create personalized workflows that span traditional app boundaries, like a digital butler who understands your unique preferences and routines</p>
+</li>
+</ol>
+<p>The most surprising benefit has been how the unified approach reveals connections between previously siloed information. It&rsquo;s like switching from a flashlight that illuminates one small area to stadium lights that show the entire field. When your exercise data, sleep tracking, and work productivity all live in the same system, patterns emerge that would be invisible when using separate apps.</p>
+<hr>
+<h3 id="11--challenges-and-next-steps">11 · Challenges and Next Steps</h3>
+<ol>
+<li>
+<p><strong>Current Challenges</strong></p>
+<ul>
+<li><strong>Security</strong>: Python code execution presents significant security risks</li>
+<li><strong>Error Handling</strong>: Improving error recovery and user-friendly error messages</li>
+<li><strong>Memory Management</strong>: Optimizing conversation history for long interactions</li>
+<li><strong>Tool Dependencies</strong>: Managing dependencies between tools and assistant versions</li>
+<li><strong>Schema Management</strong>: Balancing flexibility with consistency in database structure</li>
+</ul>
+</li>
+<li>
+<p><strong>Planned Improvements</strong></p>
+<ul>
+<li><strong>Dynamic MCP server integration</strong> Looking up <a href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener noreffer ">MCP servers</a> and installing them as tools to be used by the assistant.</li>
+<li><strong>Multi-Modal Capabilities</strong>: Adding <a href="https://en.wikipedia.org/wiki/Multimodal_learning" target="_blank" rel="noopener noreffer ">image and audio processing</a></li>
+<li><strong>Improved Tool Management</strong>: More robust tool versioning and dependency tracking</li>
+<li><strong>Security Hardening</strong>: <a href="https://en.wikipedia.org/wiki/Sandbox_%28computer_security%29" target="_blank" rel="noopener noreffer ">Sandboxed execution environments</a> and permission models</li>
+<li><strong>Advanced Visualization</strong>: Beyond ASCII art to rich interactive visualizations</li>
+<li><strong>Mobile-First Interfaces</strong>: Optimized experiences for on-the-go CRUD operations</li>
+<li><strong>Community Tool Repository</strong>: Sharing specialized tools for different CRUD app replacements</li>
+</ul>
+</li>
+<li>
+<p><strong>Future CRUD App Replacements</strong></p>
+<ul>
+<li><strong>Health Tracking</strong>: Comprehensive wellness monitoring beyond single-purpose health apps</li>
+<li><strong>Project Management</strong>: Replacing task management apps with natural language project coordination</li>
+<li><strong>Learning Systems</strong>: Personal knowledge management and spaced repetition learning</li>
+<li><strong>IoT Integration</strong>: Connecting <a href="https://en.wikipedia.org/wiki/Internet_of_things" target="_blank" rel="noopener noreffer ">Internet of Things</a> devices to the CRUD ecosystem</li>
+<li><strong>Financial Tracking</strong>: Personal finance management through conversation</li>
+</ul>
+</li>
+</ol>
+<pre tabindex="0"><code>&#34;There are always possibilities.&#34; - [Spock](https://en.wikipedia.org/wiki/Spock)
+</code></pre><hr>
+<h2 id="-takeaways">☑️ Takeaways</h2>
+<p>Building a real-world LCARS system has taught me that the most powerful sci-fi technologies aren&rsquo;t the ones that dazzle with impossible physics—they&rsquo;re the ones that solve fundamental human problems. The tricorder was revolutionary not because it used exotic particles, but because it put all the information a person might need into a single, intuitive interface.</p>
+<ul>
+<li><strong>Self-modifying AI assistants</strong> are now achievable with modern LLMs and tool-calling APIs, bringing us closer to the adaptive intelligence we&rsquo;ve dreamed of</li>
+<li><strong>Multiple interfaces</strong> (CLI, Web, Slack) provide flexible access points for different use cases—like having multiple ways to contact the ship&rsquo;s computer</li>
+<li><strong>Versioning</strong> both the assistant and its tools creates a stable evolution path, allowing the system to grow without breaking</li>
+<li><strong>Database operations</strong> (SQLite/PostgreSQL), Python execution, and visualization capabilities form a powerful foundation for replacing entire categories of apps</li>
+<li><strong>Self-modification</strong> requires careful design with placeholders and version management, but enables unprecedented adaptability</li>
+<li><strong>CRUD app replacement</strong> demonstrates immediate practical utility beyond technical novelty—this isn&rsquo;t just a proof of concept, it&rsquo;s a daily driver</li>
+<li><strong>Unified data approach</strong> reveals insights impossible with siloed app ecosystems, like having a conversation with your data instead of interrogating it</li>
+<li>The system demonstrates a practical implementation of the <strong>LCARS vision</strong> from Star Trek, proving that some sci-fi dreams are closer than we think</li>
+</ul>
+<p>This project shows how close we&rsquo;ve come to the science fiction dream of conversational computers that can extend their own capabilities—while highlighting the engineering challenges that remain in making such systems robust, secure, and truly autonomous. More surprisingly, it demonstrates how quickly such systems can replace dozens of specialized apps with a single, more flexible interface.</p>
+<p>The future isn&rsquo;t just about having smarter computers—it&rsquo;s about having computers that are easier to talk to. And sometimes, the most futuristic technology is the one that feels the most natural.</p>
+<p>— <em>End log.</em></p>
+<p>** Part of this blog post was written with the help (not by) AI (LLMs).</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-07-08&nbsp;<a class="git-hash" href="https://github.com/saftacatalinmihai/blog-hugo/commit/435b7bcc9010b7577656e3a588f117c02d505ffb" target="_blank" title="commit by Safta Catalin Mihai(saftacatalinmihai@gmail.com) 435b7bcc9010b7577656e3a588f117c02d505ffb: Update computer.md">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>435b7bc</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:8080/posts/computer/" data-title="Computer" data-via="mihaisafta_"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:8080/posts/computer/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:8080/posts/computer/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:8080/posts/computer/" data-title="Computer"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:8080/posts/computer/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/vsps/" class="prev" rel="prev" title="Visual Stream Processing System"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Visual Stream Processing System</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><div hidden><a rel="me" href="https://fosstodon.org/@mihaisafta">Mastodon</a></div></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://mihai-safta.dev" target="_blank">Safta Catalin Mihai</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
