@@ -16,9 +16,9 @@ For decades science-fiction fans have watched [Star Trek](https://en.wikipedia.o
 * execute real-world actions by routing commands to subsystems;
 * politely say **why** it couldn't comply when limits were hit.
 
-In 2025, [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) plus [tool-calling APIs](https://platform.openai.com/docs/guides/function-calling) make that dream feel within reach. I decided to find out *how close* we can get—armed with [Replit](https://replit.com/) dev env, and a [Postgres](https://www.postgresql.org/) instance.
+In 2025, [large language models (LLMs)](https://en.wikipedia.org/wiki/Large_language_model) plus [tool-calling APIs](https://platform.openai.com/docs/guides/function-calling) make that dream feel within reach. I decided to find out *how close* we can get — armed with [Replit](https://replit.com/) dev env, and a [Postgres](https://www.postgresql.org/) instance. I only focused on the conversational aspect of the computer, not the [Iconic User Interface](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/LCARS_panel_from_Star_Trek_Voyager_at_Filmwelt_Center.jpg/896px-LCARS_panel_from_Star_Trek_Voyager_at_Filmwelt_Center.jpg).
 
-You can find the open source code here: https://github.com/saftacatalinmihai/Computer
+You can find the code for this experiment here: https://github.com/saftacatalinmihai/Computer
 
 ---
 
@@ -61,38 +61,7 @@ apps with something that feels both more advanced and more intuitive.
 
 This architecture is specifically designed to enable flexible CRUD operations through natural language. The database layer supports dynamic schema creation, while the LLM "brain" translates user intentions into appropriate database operations.
 
-{{< mermaid >}}
-graph TD;
-    User[User] --> |Natural Language| Interfaces
-    subgraph Interfaces
-        CLI[Command-Line REPL]
-        Web[Web Interface]
-        Slack[Slack Bot]
-    end
-    Interfaces --> |Requests| Assistant
-    subgraph Assistant Core
-        V1[Assistant v1]
-        V2[Assistant v2]
-        V3[Assistant v3]
-        V4[Assistant v4]
-        Loader[Assistant Loader]
-    end
-    Assistant --> |Queries| LLM[LLM Clients]
-    LLM --> |Responses| Assistant
-    Assistant --> |Tool Calls| Tools
-    subgraph Tool Hub
-        SQL[SQL Operations]
-        Python[Python Execution]
-        ASCII[ASCII Art Generation]
-        Self[Self-Modification]
-    end
-    Tools --> |Results| Assistant
-    SQL --> DB
-    subgraph Database
-        SQLite[SQLite]
-        Postgres[PostgreSQL]
-    end
-{{< /mermaid >}}
+[![](https://mermaid.ink/img/pako:eNptU21vmzAQ_iuWP4cpQEMyJk1KSbVFolvf1klz-sGBS4Jq7MwvU9sk_302sOCxWbrzcc-9PT5xwIUoAad4K-l-hx4WH1Yc2fNNgSROPaEg-IiOX6g2kjKUU741dAtHtOQa5IYWoNoMZdZtjSHgTpYvSSbqmvIyyCsO6O7qJn_q8e-wJlb6XA-7Z7R4Jo1Gl0J3CPCyNfp27aR38NOA0uqI5kpVSlOuBwOe_SgTEvpGjyHpoV-hN8Jj5CORj8Q-EvvIhY9ceEguaGlft0dbx5BYjze8bg3ICiytPL8mVlDGKuBadWnO0_FXe8EV_PsAg4IPQjCUUcZspLOHe2zwz2btbeI2J1bQ1z1IqivbxWN186p3gpP2QlcvUBgX4kXM77PlkjQazaVGn4B3dfxtA9sQp4JrUVabqvADzm_TzHvma9h_1u0GdQGLywGvBdV0TRX8xavSQNrLpySU3kpQpDNsQD8IHtl_pipxqqWBEa5B1tR94oMLWWG9gxpWOLVmSeXzCq_4yebsKf8hRP0nTQqz3eF0Q5myX2ZfUg2LitpJ67NX2m4gM2G4xun7uKmB0wN-wen43didME4m08jKJJ4lcRJGI_yK06BDJ-E0msVxnMymyTiJwtMIvzUjcMPY6TfFrkEZ?type=png)](https://mermaid.live/edit#pako:eNptU21vmzAQ_iuWP4cpQEMyJk1KSbVFolvf1klz-sGBS4Jq7MwvU9sk_302sOCxWbrzcc-9PT5xwIUoAad4K-l-hx4WH1Yc2fNNgSROPaEg-IiOX6g2kjKUU741dAtHtOQa5IYWoNoMZdZtjSHgTpYvSSbqmvIyyCsO6O7qJn_q8e-wJlb6XA-7Z7R4Jo1Gl0J3CPCyNfp27aR38NOA0uqI5kpVSlOuBwOe_SgTEvpGjyHpoV-hN8Jj5CORj8Q-EvvIhY9ceEguaGlft0dbx5BYjze8bg3ICiytPL8mVlDGKuBadWnO0_FXe8EV_PsAg4IPQjCUUcZspLOHe2zwz2btbeI2J1bQ1z1IqivbxWN186p3gpP2QlcvUBgX4kXM77PlkjQazaVGn4B3dfxtA9sQp4JrUVabqvADzm_TzHvma9h_1u0GdQGLywGvBdV0TRX8xavSQNrLpySU3kpQpDNsQD8IHtl_pipxqqWBEa5B1tR94oMLWWG9gxpWOLVmSeXzCq_4yebsKf8hRP0nTQqz3eF0Q5myX2ZfUg2LitpJ67NX2m4gM2G4xun7uKmB0wN-wen43didME4m08jKJJ4lcRJGI_yK06BDJ-E0msVxnMymyTiJwtMIvzUjcMPY6TfFrkEZ)
 
 ---
 
