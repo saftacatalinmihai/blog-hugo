@@ -34,7 +34,7 @@ This project does not mean to say there is anything wrong with using Rails in Ru
 
 It seems to me that the software industry had evolved in terms of frameworks and libraries, but not in C, in other higher level languages - as it is seen to be an old programming language... and it has the perceived disadvantage of being manual memory managed - which can cause memory leaks. All of this can be easily managed today with tools that check for memory leaks, but also using some simple programming techniques, the issue can be managed quite easily. I think it is time to go back to C but take the learnings from the other languages.
 
-My benchmark for the proof of concept is to replicate as close as possible the code from the [Rails getting started page](https://guides.rubyonrails.org/getting_started.html).
+My benchmark for the proof of concept is to replicate as close as possible the code from the [Rails getting started page](https://guides.rubyonrails.org/getting_started.html). Having that page open would help with extra context while reading this post.
 
 ## How
 
@@ -46,18 +46,39 @@ I landed on [facil.io](https://facil.io/) which provides high performance TCP/IP
 
 I later learned is also used for a Rails server backend implementation (just one of the coincidences that links this project with Ruby on Rails - happened multiple times during this project)
 
-Looking at the Rails Getting Started page - the first step (jumping over the project setup) is to define a model, which you can do in C by just defining a struct.
-
 ### Model / ActiveRecord
 
-In Rails you do this by generating the model from the CLI with `bin/rails generate model Product name:string`
-The model in code can leave out the fields, as they are automatically retrieved from the DB:
+Looking at the Rails Getting Started page - the first step (jumping over the project setup) is to define a model - and run a DB migration to create the model structure in the database.
+
+In Rails you do this by generating the model from the CLI. In Cuprite we first generate the model code from a struct with a script, then run a migration script.
 
 {{< rawhtml >}}
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div>
 {{< /rawhtml >}}
 
+```ruby
+bin/rails generate model Product name:string
+```
+
 {{< rawhtml >}}
+</div><div>
+{{< /rawhtml >}}
+
+```bash
+make generate_model model=Product
+```
+
+The model code-generation script that generates all the `ActiveRecord` functions - the database access code for interacting with the model in the database. For example: `product_new`, `product_find`, `product_all`
+
+{{< rawhtml >}}
+</div></div>
+{{< /rawhtml >}}
+
+Using the model in Ruby code requires just a model class definition. In Cuprite you define the full model struct before running the code generation script:
+
+{{< rawhtml >}}
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 <div>
 {{< /rawhtml >}}
 
@@ -86,47 +107,45 @@ typedef struct {
 
 The Rails way is a bit too magical for me (at list for the first MVP, could look into this later), so I decided to require the programmer to define a struct for the model with all the fields.
 
-```bash
-make generate_model model=Product
-```
+The first time you run a make command, cuprite also downloads and build the `facio.io` library.
 
-Having the model struct, you can run the model code-generation script that generates all the `ActiveRecord` functions - the database access code for interacting with the model in the database. For example: `product_new`, `product_find`, `product_all`
+### Interacting with Active Records
 
-After the model code generation, you run run the db migration to create the model table in the database (in that order):
+In Ruby you have methods on the Active Record objects which are magically created based on the table structure.
 
+In Cuprite you have the generated functions based on the model struct which look almost the same as the methods in Ruby.
 
-and
-
-```sh
-make migrate
-```
-
-The first time you run a make command, it also downloads and build the `facio.io` library
-
-The `generate_model` script will generate C code that takes the given model struct and create all the db access functions - similar to the ActiveRecord methods in Rails.
-
-For comparison:
-
-{{< rawhtml >}}
+<!-- {{< rawhtml >}}
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 {{< /rawhtml >}}
 
 {{< rawhtml >}}
 <div>
-{{< /rawhtml >}}
+{{< /rawhtml >}} -->
 
 ```ruby
 product = Product.new(name: "T-Shirt")
+// 
+products = Product.all
+//
+product = Product.find(1)
+// 
+...
 ```
 
-Nice and clean.
-
-{{< rawhtml >}}
+<!-- {{< rawhtml >}}
 </div><div>
-{{< /rawhtml >}}
+{{< /rawhtml >}} -->
 
 ```C
 Product* p = product_new();
+//
+int count = 0;
+Product** products = product_all(&count); // the _all function also sets the count variable. 
+//
+Product* p = product_find(1);
+//
+...
 ```
 
 Notice the `product_new()` function does not take parameters. I left this for a later implementation. For now you can set fields on the product struct and then call the save function with it:
@@ -136,11 +155,73 @@ p->name = strdup("T-Shirt");
 int id = product_save(p);
 ```
 
-{{< rawhtml >}}
+<!-- {{< rawhtml >}}
 </div></div>
-{{< /rawhtml >}}
+{{< /rawhtml >}} -->
 
 We need `strdup` because the product needs to own the memory for the `name` string so it can free it. If we did just `p->name = "T-Shirt"`, the "T-Shirt" string is allocated on the stack so it can't be safely freed later with `product_free(p)`. This is one of the things you need to keep track of when using C - but for this case you quite easily find the issue because the app will break on the first `free` call when `strdup` is not used.
+
+### Routes
+
+Routes are specified with a simple DSL that looks almost the same in Rails vs Cuprite.  You specify the HTTP request type: get/post/put etc, the URL pattern and the Controller function to handle the request.
+
+```ruby
+Rails.application.routes.draw do
+  get "/products", to: "products#index"
+
+  get "/products/new", to: "products#new"
+  post "/products", to: "products#create"
+
+  get "/products/:id", to: "products#show"
+
+  get "/products/:id/edit", to: "products#edit"
+  patch "/products/:id", to: "products#update"
+  put "/products/:id", to: "products#update"
+
+  delete "/products/:id", to: "products#destroy"
+end
+```
+
+```c
+#include "controllers/products_controller.h"
+
+void initialize_routes(void) {
+    route_get("/products", products_index);
+
+    route_get("/products/new", products_new);
+    route_post("/products", products_create);
+
+    route_get("/products/:id", products_show);
+
+    route_get("/products/:id/edit", products_edit);
+    route_patch("/products/:id", products_update);
+    route_put("/products/:id", products_update);
+
+    route_delete("/products/:id", products_destroy);
+```
+
+### Controllers & Actions
+
+In Rails you generate the controller as well - like you generate the model:
+
+```rails
+bin/rails generate controller Products index
+```
+
+This generates a controller like:
+
+```ruby
+class ProductsController < ApplicationController
+  def index
+  end
+end
+```
+
+In Cuprite you have to write the controller yourself, there is no code generation for it.
+
+There is nothing special about the controller in Cuprite. It is just a file containing the functions that the routes call into. The controller file is included in the routes file with `#include "controllers/products_controller.h"`
+
+### Running the server
 
 We can start the server with
 ```sh
@@ -151,17 +232,18 @@ make start
 
 TODO:
 
-- Acknowledge an already existing cuprite project in Ruby
+- [ ] Acknowledge an already existing cuprite project in Ruby
+- [ ] compare code between Rails and Cuprite.
+  - [ ] model
+  - [ ] routes
+  - [ ] controller
+  - [ ] views
+    - [ ] talk about HTMX as opposed to Turbo (preload, view transitions, mustache)
 - [x] Facil.IO - already used as a ruby server
-- talk about the coincidence from the 2 above of finding links to ruby in choices made, before knowing about them.
-- address #no-build.
-- c is fast - perf test ab / hey show
-- i use arch, omarchi , neovim , btw.
-- How to use:
-  - model generation (using ruby)
-  - run migrations
-  - run app
-  - htmx (preload, view transitions, mustache)
+- [ ] talk about the coincidence from the 2 above of finding links to ruby in choices made, before knowing about them.
+- [ ] address #no-build.
+- [ ] c is fast - perf test ab / hey show
+- [ ] i use arch, omarchi , neovim , btw.
 
 [^1]: [Rails World 2023 Opening Keynote](https://youtu.be/iqXjGiQ_D-A?si=Wk-lCifYGY9pqSp0)
 [^2]: [Lex Fridman Podcast - DHH: Future of Programming, AI, Ruby on Rails, Productivity & Parenting](https://www.youtube.com/watch?v=vagyIcmIGOQ)
