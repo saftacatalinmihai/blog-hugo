@@ -196,13 +196,14 @@ void initialize_routes(void) {
     route_put("/products/:id", products_update);
 
     route_delete("/products/:id", products_destroy);
+}
 ```
 
 ### Controllers & Actions
 
 In Rails you generate the controller as well - like you generate the model:
 
-```rails
+```sh
 bin/rails generate controller Products index
 ```
 
