@@ -99,9 +99,9 @@ Rich Hickey is a prominent figure in the software engineering world, known for c
 
 {{< youtube _eC14GonZnU >}}
 
-## 7. Bret Victor - The Future of Programming (2013)
+## 7. Bret Victor - Inventing on principle (2012)
 
-{{< vimeo 71278954 >}}
+{{< youtube EGqwXt90ZqA >}}
 
 ## Bonus: Patrick Winston - How to Speak (2018)
 
