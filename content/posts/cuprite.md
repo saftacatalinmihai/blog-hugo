@@ -10,27 +10,29 @@ tags:
   - htmx
 ---
 
-{{< rawhtml >}}<span style="font-size: xxx-large; font-family: serif; font-style: italic">W</span>{{< /rawhtml >}}hat do you get when you binge watch [DHH](https://dhh.dk/) talks[^1] and podcasts[^2] [^3], but are also in a low level programming mood from watching [Better Software Conference](https://www.youtube.com/@BetterSoftwareConference) talks and other sources like [Wookash](https://www.youtube.com/@WookashPodcast) and [Casey Muratori](https://caseymuratori.com/)'s [Computer Enhance](https://www.computerenhance.com/about) courses ?
+{{< rawhtml >}}<span style="font-size: xxx-large; font-family: serif; font-style: italic">W</span>{{< /rawhtml >}}hat do you get when you binge watch [DHH](https://dhh.dk/) talks[^1] and podcasts[^2] [^3], but you are also in a `low level` programming mood from watching the [Better Software Conference](https://www.youtube.com/@BetterSoftwareConference) talks and other sources like [Wookash](https://www.youtube.com/@WookashPodcast) and [Casey Muratori](https://caseymuratori.com/)'s [Computer Enhance](https://www.computerenhance.com/about) courses ?
 
 Well... what I got is an urge to write a Ruby on Rails like - web framework - in C.
 
-TL;DR - [Cuprite Github link](https://github.com/saftacatalinmihai/cuprite)
+{{< admonition type=note title="TL;DR" open=true >}}
+The link to [Cuprite](https://github.com/saftacatalinmihai/cuprite)
+{{< /admonition >}}
 
 ## Why
 
-<!-- {{< rawhtml >}}
+{{< rawhtml >}}
 <div class="class">
 <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">any sufficiently complicated web app i build in java contains an ad hoc, informally-specified, bug-ridden, slow implementation of half of ruby on rails</p>&mdash; htmx.org / CEO of Rizz&#39;em w/the &#39;Tizm (same thing) (@htmx_org) <a href="https://twitter.com/htmx_org/status/1950348285786661031?ref_src=twsrc%5Etfw">July 30, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-{{< /rawhtml >}} -->
+{{< /rawhtml >}}
 
-Ruby on Rails is already known to be the best web framework for developer happiness.
+[Ruby on Rails](https://rubyonrails.org/) is already known to be the best web framework for developer happiness.
 
-Rails emphasizes the use of other well-known software engineering patterns and paradigms, including convention over configuration (CoC), don't repeat yourself (DRY), and the active record pattern.
+Rails emphasizes the use of well-known software engineering patterns and paradigms, including convention over configuration (CoC), don't repeat yourself (DRY), and the active record pattern.
 
-I don't want to reinvent the wheel for developer experience given that there is already a good model, but wanted to see how close I could get to the Ruby version using the C programming language.
+I don't want to reinvent the wheel for developer experience - given that there is already a good model. I wanted to see how close I could get to the Ruby version using the C programming language.
 
-This project does not mean to say there is anything wrong with using Rails in Ruby - it only tries to see if the same experience (or close enough) can be replicated in C which has the performance advantage.
+This project does not mean to say there is anything wrong with using Rails in Ruby - it only tries to see if the same experience (or close enough) can be replicated in the C programming language which has the performance advantage.
 
 It seems to me that the software industry had evolved in terms of frameworks and libraries, but not in C, in other higher level languages - as it is seen to be an old programming language... and it has the perceived disadvantage of being manual memory managed - which can cause memory leaks. All of this can be easily managed today with tools that check for memory leaks, but also using some simple programming techniques, the issue can be managed quite easily. I think it is time to go back to C but take the learnings from the other languages.
 
