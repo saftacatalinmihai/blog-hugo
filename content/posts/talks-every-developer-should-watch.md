@@ -82,7 +82,7 @@ It's not that we can't do amazing things with computers. We can. But when they d
 you shouldn't write systems that violate laws of physics
 {{< /admonition >}}
 
-[Joe Armstrong](https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)) was a pioneer in software engineering who created the [Erlang](https://en.wikipedia.org/wiki/Erlang_(programming_language)) programming language, a concurrent, functional, and fault-tolerant language that powers many distributed systems today. He was motivated by the need to build reliable and scalable telecom applications at Ericsson that could handle millions of users without downtime. He also developed a design methodology and a set of libraries called [OTP](https://en.wikipedia.org/wiki/Open_Telecom_Platform) that provide common patterns and tools for building robust systems with [Erlang](https://en.wikipedia.org/wiki/Erlang_(programming_language)). 
+[Joe Armstrong](https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)) was a pioneer in software engineering who created the [Erlang](https://www.erlang.org/) programming language, a concurrent, functional, and fault-tolerant language that powers many distributed systems today. He was motivated by the need to build reliable and scalable telecom applications at Ericsson that could handle millions of users without downtime. He also developed a design methodology and a set of libraries called [OTP](https://en.wikipedia.org/wiki/Open_Telecom_Platform) that provide common patterns and tools for building robust systems with [Erlang](https://www.erlang.org/). 
 
 In this talk, Joe asks what went wrong with programming, given that hardware has improved soo much in the past half century, yet is seems that software is a lot slower than it should be just given CPU speedup in MHz and #processors, and also breaks all the time.
 
@@ -90,18 +90,25 @@ In this talk, Joe asks what went wrong with programming, given that hardware has
 
 {{< youtube LKtk3HCgTa8 >}}
 
-Rich Hickey is a prominent figure in the software engineering world, known for creating the Clojure programming language and the Datomic database system. He has over 20 years of experience in various domains, such as scheduling, broadcast automation, audio analysis, database design, and machine learning. He is also a prolific speaker and writer, who has delivered influential talks and papers on topics such as functional programming, concurrency, data structures, and software design.
+{{< admonition type=quote title="Simplicity is a choice." open=false >}}
+It's your fault if you don't have a simple system. And I think we have a culture of complexity. To the extent we all continue to use these tools that have complex outputs, we're just in a rut.
+{{< /admonition >}}
 
+[Rich Hickey](https://en.wikipedia.org/wiki/Rich_Hickey) is a prominent figure in the software engineering world, known for creating the [Clojure](https://clojure.org/) programming language and the [Datomic](https://www.datomic.com/) database system. He has over 20 years of experience in various domains, such as scheduling, broadcast automation, audio analysis, database design, and machine learning. He is also a prolific speaker and writer, who has delivered influential talks and papers on topics such as functional programming, concurrency, data structures, and software design.
 
-## 6. Gerald Sussman - We Really Don't Know How to Compute! (2011)
+In this talk, Rich argues that we should pursue simplicity, not ease of use, in software design and avoid complexity by choosing simple tools and constructs and carefully separating concerns.
+
+<!-- ## 6. Gerald Sussman - We Really Don't Know How to Compute! (2011)
 
 {{< youtube HB5TrK7A4pI >}}
 
-## OR 
+## OR  -->
 
 ## 6. Stephen Wolfram - A New Kind of Science
 
 {{< youtube _eC14GonZnU >}}
+
+[Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram) is a renowned computer scientist, physicist, and entrepreneur known for his work in cellular automata, complexity theory, and computational knowledge. He is the creator of Mathematica, a comprehensive computational software, and Wolfram Alpha, an innovative online computational knowledge engine that answers factual queries directly by computing the answer from structured data. Wolfram's theoretical work includes his explorations into the nature of complexity in the natural world, best illustrated in his book, "A New Kind of Science". This work introduced the [principle of computational equivalence](https://en.wikipedia.org/w/index.php?title=A_New_Kind_of_Science#Principle_of_computational_equivalence) and argued that the universe itself might be understood as a simple computational process. Despite his contentious role in the scientific community due to his unconventional approaches, his contributions have undeniably expanded the horizon of computational science.
 
 ## 7. Bret Victor - Inventing on Principle (2012)
 
