@@ -14,4 +14,4 @@ From programming languages to architecture and design to hardware and automation
 
 I post some of my thoughts on these topics in this blog.
 
-I live in Bucharest, Romania.
+I live in Bucharest, Romania :romania: .
