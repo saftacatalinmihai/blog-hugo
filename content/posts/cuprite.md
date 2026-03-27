@@ -34,12 +34,13 @@ I did not want to start completely from scratch and also build the http server c
 Landed on facil.io - which I later learned is also used for a Rails server backend implementation ( just one of the coincidences that happened during this project )
 
 The first step is to define a model, which you can do in C by just defining a struct.
-'''
+
+'''c
 typedef struct {
    id: int,
    name: char*,
 } Product;
-
+'''
 
 TODO:
 
