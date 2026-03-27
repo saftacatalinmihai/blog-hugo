@@ -2,12 +2,12 @@
 title: "7 Essential Tech Talks Every Developer Should Watch"
 date: 2023-07-09T15:37:11Z
 images: 
-  - "https://vultureni.mihaisafta.com/webapi/entry.cgi/workroom.png?id=41864&cache_key=%2241864_1690722779%22&type=%22unit%22&size=%22xl%22&api=%22SYNO.FotoTeam.Thumbnail%22&method=%22get%22&version=2&SynoToken=f9ptdoHJ8qCsc"
-featuredImage: "https://vultureni.mihaisafta.com/webapi/entry.cgi/workroom.png?id=41864&cache_key=%2241864_1690722779%22&type=%22unit%22&size=%22xl%22&api=%22SYNO.FotoTeam.Thumbnail%22&method=%22get%22&version=2&SynoToken=f9ptdoHJ8qCsc"
-featuredImagePreview: "https://vultureni.mihaisafta.com/webapi/entry.cgi/workroom.png?id=41864&cache_key=%2241864_1690722779%22&type=%22unit%22&size=%22xl%22&api=%22SYNO.FotoTeam.Thumbnail%22&method=%22get%22&version=2&SynoToken=f9ptdoHJ8qCsc"
+  - "https://public.mihai-safta.dev/workroom.png"
+featuredImage: "https://public.mihai-safta.dev/workroom.png"
+featuredImagePreview: "https://public.mihai-safta.dev/workroom.png"
 seo:
   images: 
-    - "https://vultureni.mihaisafta.com/webapi/entry.cgi/workroom.png?id=41864&cache_key=%2241864_1690722779%22&type=%22unit%22&size=%22xl%22&api=%22SYNO.FotoTeam.Thumbnail%22&method=%22get%22&version=2&SynoToken=f9ptdoHJ8qCsc"
+    - "https://public.mihai-safta.dev/workroom.png"
 ---
 
 
