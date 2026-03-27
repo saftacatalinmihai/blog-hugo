@@ -1,10 +1,9 @@
 ---
-layout: post
 title: Pure Functional Stream processing in Scala [2]
-excerpt: Cats and Akka – Part 2
+subtitle: Cats and Akka – Part 2
 date: 2021-02-14
-updatedDate: 2021-02-14
-banner: carbon.png
+lastmod: 2023-01-03
+images: [carbon.png]
 tags:
   - post
   - scala
@@ -12,9 +11,7 @@ tags:
   - akka
 ---
 
-<div align="center">
-    <img alt="graph-dsl-code" title="GraphDSL Code" src="/carbon.png">
-</div>
+{{< figure src="/carbon.png" title="" alt="graph-dsl-code">}}
 
 In the last [post](/posts/pure-functional-stream-processing-in-scala-1/), we saw how to combine pure functions running in IO and Akka streams using `.mapAsync` and `.unsafeToFuture`
 
@@ -30,21 +27,19 @@ source
 
 In order to make it easier to work with IO in Akka Streams, we can write some helpers to add a method on Streams that automatically run the IO inside the flow. This will simplify the interaction between pure code and stream code.
 
-Readability will improve, **but** before we get there, it’s very important to recognise that we should view these 2 ways of writing code<sup id="a1">[[1]](#f1)</sup> as having [orthogonal](https://en.wikipedia.org/wiki/Orthogonality_\(programming\) ) purposes.
+Readability will improve, **but** before we get there, it’s very important to recognise that we should view these 2 ways of writing code[^1] as having [orthogonal](https://en.wikipedia.org/wiki/Orthogonality_\(programming\) ) purposes.
 
 <br/>
 
 ### Streams as plumbing
 <br/>
 
-<div align="center">
-    <img alt="plumbing" title="Plumbing" src="/plumbing.jpeg">
-</div>
+{{< figure src="/plumbing.jpeg" title="" alt="plumbing">}}
 
 The philosophy is identical to how [Unix pipes](https://en.wikipedia.org/wiki/Pipeline_(Unix))  work.\
 You write small pieces of code using simple programs like: `ps, grep, find, sed, awk, xargs, kill` etc… and join those smaller programs into a bigger one by piping data between them. The output of one program goes into the input of the next.
 
-There is a clear separation of duties between programs that do something<sup id="a2">[[2]](#f2)</sup> and pipes that just pass data along between programs.
+There is a clear separation of duties between programs that do something[^2] and pipes that just pass data along between programs.
 
 Here’s an example of a pipeline that finds all java processed and stops them:
 
@@ -52,7 +47,7 @@ Here’s an example of a pipeline that finds all java processed and stops them:
 ps aux | grep java | grep -v grep | awk '{ print $2 }' | xargs kill -9
 ```
 
-The similarity between this and Akka flows is almost one to one<sup id="a3">[[3]](#f3)</sup>.
+The similarity between this and Akka flows is almost one to one[^3].
 
 One issue in Scala is that we write both the **program** and the **pipeline / stream** in the same language, which can blurry the separation of concerns…\
 For this reason, some people don’t see why we should separate these two ways of writing the full program.
@@ -69,7 +64,7 @@ Assuming we understand the separation of concerns between pure functions and str
 
 The first step is to simplify using `.mapAsync` and IO.
 
-What we need is another method on Akka streams that automatically runs the IO<sup id="a4">[[4]](#f4)</sup> inside the Flow by transforming it into a Future.
+What we need is another method on Akka streams that automatically runs the IO[^4] inside the Flow by transforming it into a Future.
 
 We can enable this generically by wrapping a source or flow in extension classes with the extra method: `.unsafeMapAsync`
 
@@ -85,7 +80,7 @@ implicit class FlowExtensions[A, B, Mat](val flow: Flow[A, B, Mat]) extends AnyV
 }
 ```
 
-The method name shows we are running the effect which is unsafe<sup id="a5">[[5]](#f5)</sup> – similar to the method name `.unsafeToFuture`
+The method name shows we are running the effect which is unsafe[^5] – similar to the method name `.unsafeToFuture`
 This is the split between pure FP and Akka streams. We are now in streaming territory where we run the effects in each flow step.
 
 * * *
@@ -165,9 +160,7 @@ Is to a unix pipeline. Just replace ~> with | and it’s the same.
 
 It’s also very similar to something we might draw to represent this flow.
 
-<div align="center">
-    <img alt="flow-representation" title="Flow Representation" src="/Flow-1.png">
-</div>
+{{< figure src="/Flow-1.png" title="" alt="flow-representation">}}
 
 I think this is one of the significant advantages of using Akka streams and the GraphDSL – **you can look at the actual code to see the computational graph instead of looking at representations of it**.\
 It’s not drawn by someone else, which can also become outdated quickly. The code does not lie, a representation can.
@@ -187,9 +180,7 @@ However, let’s look at what we can implement to make sure the stream never sto
 
 We can design a different stream component that will catch exceptions in the **IO** and push it on a separate error stream – similar to the STDERR of Unix.
 
-<div align="center">
-    <img alt="component-err" title="Component Error Output" src="/ComponentErr-1.png">
-</div>
+{{< figure src="/ComponentErr-1.png" title="" alt="component-err">}}
 
 To achieve this we can add another extension method on Flow and Source which will run the effect but return a component with a specific output for the Error, if there is any error thrown in the effect.
 
@@ -283,19 +274,17 @@ GraphDSL.create() { implicit builder =>
 }
 ```
 
-The toTuple<sup id="a6">[[6]](#f6)</sup> helper just recreates a Flow for the success path and a separate Source with the errors from the FanOutShape2 graph to make it easier to connect.
+The toTuple[^6] helper just recreates a Flow for the success path and a separate Source with the errors from the FanOutShape2 graph to make it easier to connect.
 
 If we look at this drawing of this graph and compare it with the code, we’ll see that they are quite similar
 
-<div align="center">
-    <img alt="complex-components" title="Complex Components" src="/ComplexComponents.png">
-</div>
+{{< figure src="/ComplexComponents.png" title="Complex Components" alt="complex-components">}}
 
 Notice that the newly constructed Graph is itself a `FanOutShape2` graph. We could embed it in a higher level graph. Structural composition of graphs is easy, they compose hierarchically.
 
 Also note that we have a loop from the error output of the error handler itself. This may come as a surprise… we could have side-effects in handling errors like sending a notification to PagerDuty or an email. These effects could fail themselves - if the service is down…
 
-If we wrote the code in a more traditional manner, we might even miss seeing this loop<sup id="a7">[[7]](#f7)</sup>, but now that we see it explicitly, we can do something about it<sup id="a8">[[8]](#f8)</sup>.
+If we wrote the code in a more traditional manner, we might even miss seeing this loop[^7], but now that we see it explicitly, we can do something about it[^8].
 
 In my case, the handleErrorsComponent function prints the exception, but also [throttles](https://doc.akka.io/docs/akka/current/stream/operators/Source-or-Flow/throttle.html#throttle) the stream so that if there are many errors happening, the whole stream will go into back-pressure and start taking fewer input messages.
 
@@ -325,30 +314,19 @@ Coments [thread on Reddit](https://www.reddit.com/r/scala/comments/lotklb/pure_f
 
 </br>
 
-#### References
-
-<b id="f1">[1]</b> Pure code and Streams code [↩](#a1)
-
-<b id="f2">[2]</b> Programs that do some work and have side effects [↩](#a2)
-
-<b id="f3">[3]</b> The difference is that Unix pipes have 2 output streams: STDOUT and STDERR.\
+[^1]: Pure code and Streams code
+[^2]: Programs that do some work and have side effects
+[^3]:The difference is that Unix pipes have 2 output streams: STDOUT and STDERR.\
 In Akka flows, you only have one output as a stream – which is for successful processing.\
-It throws errors out of bound – you don’t have an error stream [↩](#a3)
-
-<b id="f4">[4]</b> We can be more generic by using the [Effect](https://typelevel.org/cats-effect/typeclasses/effect.html) type constraint instead of IO directly [↩](#a4)
-
-<b id="f5">[5]</b> Because it executes side effects [↩](#a5)
-
-<b id="f6">[6]</b>
-  ```scala
-  def toTuple[I, O, E](g: FanOutShape2[I, O, E]): (FlowShape[I, O], Outlet[E]) = {
-    val Err = g.out1
-    val Success = g.out0
-    (FlowShape(g.in, Success), Err)
-  }
-  ``` 
-[↩](#a6)
-
-<b id="f7">[7]</b> which could lead to unfortunate things like messages stuck in an infinite loop, hogging CPU and memory [↩](#a7)
-
-<b id="f8">[8]</b> making sure to handle errors in the loop so they don’t cycle infinitely [↩](#a8)
+It throws errors out of bound – you don’t have an error stream
+[^4]: We can be more generic by using the [Effect](https://typelevel.org/cats-effect/typeclasses/effect.html) type constraint instead of IO directly
+[^5]: Because it executes side effects
+[^6]: ```scala
+      def toTuple[I, O, E](g: FanOutShape2[I, O, E]): (FlowShape[I, O], Outlet[E]) = {
+        val Err = g.out1
+        val Success = g.out0
+        (FlowShape(g.in, Success), Err)
+      }
+      ```
+[^7]: which could lead to unfortunate things like messages stuck in an infinite loop, hogging CPU and memory
+[^8]: making sure to handle errors in the loop, so they don’t cycle infinitely

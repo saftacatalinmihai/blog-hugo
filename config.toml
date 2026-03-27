@@ -66,7 +66,7 @@ enableEmoji = true
     # ["sha256", "sha384", "sha512", "md5"]
     fingerprint = ""
     # LoveIt NEW | 0.2.0 date format
-    dateFormat = "2023-01-02"
+    dateFormat = "2006-01-02"
     # website title for Open Graph and Twitter Cards
     title = "Mihai Safta's blog"
     # website description for RSS, SEO, Open Graph and Twitter Cards
@@ -232,13 +232,34 @@ enableEmoji = true
             # content hovering on the icon
             title = "Mastodon"
 
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
 
 # Markup related configuration in Hugo
 [markup]
+    defaultMarkdownHandler = 'goldmark'
     # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
     [markup.highlight]
         # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
         noClasses = false
-
-[outputs]
-    home = ["HTML", "RSS", "JSON"]
+    [markup.goldmark]
+        [markup.goldmark.extensions]
+            definitionList = true
+            footnote = true
+            linkify = true
+            linkifyProtocol = 'https'
+            strikethrough = true
+            table = true
+            taskList = true
+            typographer = true
+    [markup.goldmark.parser]
+        autoHeadingID = true
+        autoHeadingIDType = 'github'
+        wrapStandAloneImageWithinParagraph = true
+    [markup.goldmark.parser.attribute]
+        block = false
+        title = true
+    [markup.goldmark.renderer]
+        hardWraps = false
+        unsafe = false
+        xhtml = false
