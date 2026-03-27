@@ -1,8 +1,12 @@
 ---
-title: "7 Talks every Developer should watch (Draft)"
+title: "7 Talks every Developer should watch"
 date: 2023-07-09T15:37:11Z
 # draft: true
 ---
+
+{{< admonition type=info title="" open=true >}}
+This post is still a draft
+{{< /admonition >}}
 
 TODO
 - [ ] proofread, recheck correct information
