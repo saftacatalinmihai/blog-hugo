@@ -42,6 +42,14 @@ enableEmoji = true
         title = "Tags"
     [[menu.main]]
         weight = 3
+        identifier = "about"
+        pre = ""
+        post = ""
+        name = "About"
+        url = "/about"
+        title = "About"
+    [[menu.main]]
+        weight = 4
         identifier = "rss"
         pre = "<i class='fa-solid fa-square-rss'></i>"
         post = ""
@@ -58,7 +66,7 @@ enableEmoji = true
     # ["sha256", "sha384", "sha512", "md5"]
     fingerprint = ""
     # LoveIt NEW | 0.2.0 date format
-    dateFormat = "2006-01-02"
+    dateFormat = "2023-01-02"
     # website title for Open Graph and Twitter Cards
     title = "Mihai Safta's blog"
     # website description for RSS, SEO, Open Graph and Twitter Cards
