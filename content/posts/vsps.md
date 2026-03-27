@@ -1,7 +1,7 @@
 ---
 title: "Visual Stream Processing System"
 subtitle: "Drawing Programs"
-date: 2024-07-10T18:44:58Z
+date: 2024-07-10T12:44:58Z
 tags:
 - scala
 - streaming
@@ -51,14 +51,14 @@ However, the restart only takes a few seconds, so it is not a big deal for now.
 {{< /admonition >}}
 
 ## Logs
-{{< figure src="/vsps_logs.gif" title="" alt="logs">}}
+{{< figure src="https://s10.gifyu.com/images/StqmJ.gif" title="" alt="logs">}}
 {{< admonition type=note open=false title="" >}}
 Instead of adding some custom view for showing logs - why not just use an existing solution (ELK stack - ElasticSearch, Logstash, Kibana) and embed it in the tool.
 After all tldraw allows embedding of any web content with iframes.
 {{< /admonition >}}
 
 ## Proof of concept: Fibonacci
-{{< figure src="/vsps_fibonacci.gif" title="" alt="fibonacci">}}
+{{< figure src="https://s10.gifyu.com/images/StqmP.gif" title="" alt="fibonacci">}}
 {{< admonition type=note open=false title="" >}}
 This is a simple example of a Fibonacci stream component. It generates the Fibonacci sequence and prints it.
 {{< /admonition >}}
