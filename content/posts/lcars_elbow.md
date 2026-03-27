@@ -1,6 +1,7 @@
 ---
 title: "Raylib LCARS Elbow designer"
 date: 2026-03-18T18:19:44+02:00
+images: [lcars-elbow.png]
 ---
 
 ## [LCARS](https://en.wikipedia.org/wiki/LCARS) Elbow designer in [Raylib](https://www.raylib.com/)
