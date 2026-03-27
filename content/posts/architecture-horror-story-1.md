@@ -1,7 +1,7 @@
 ---
 title: "Software Architecture Horror Story"
 subtitle: "Why modern software is slow and unreliable" 
-date: 2025-10-10T13:35:31+03:00
+date: 2025-10-09T19:35:31+03:00
 ---
 
 This is a tale of software architecture decision-making in large companies.
@@ -32,7 +32,9 @@ The `P` team wanted to keep their automation setup and asked if we would be okay
 
 This suggestion perplexed me from the start. The distance between the 2 data centers was considerable (30 ms ping time). I engaged with them and explained - politely - that this setup would introduce unnecessary latency and create a dependency on another data center for the system’s functionality. It would be much better if they deployed the proxy app `P` closer to the `B` system or even on the `B` system server. 
 
-Unfortunately, this didn’t go well. Things escalated, and I had to schedule a full **Architecture Decision Meeting**, inviting around 10–15 architects, tech leads, and even the CIO.
+This to me seems obvious. The idea of adding a dependency on a whole other data center - that's hundreds of kilometers away - just to transform some data, seems preposterous. It goes against everything I understand as an software architect or engineer in general.
+
+Unfortunately, the discussion didn’t go well. Things escalated, and I had to schedule a full **Architecture Decision Meeting**, inviting around 10–15 architects, tech leads, and even the CIO.
 
 I thought surely, presenting the two options—(1) `A` and `B` in `DC-1` with `P` in `DC-2` vs. (2) all systems in `DC-1` — would be convincing to any architect, especially infrastructure architects. The setup with all apps in the same DC would have near-zero latency, while the two-DC setup would introduce a minimum of 120 ms latency due to two synchronous requests: `A` to `P` and `P` to `B`, each round trip requiring 60 ms (30 ms for the request, 30 ms for the response). This latency would be added to `B`’s processing time, which was very fast (around 5–10 ms). So, total latency would be an order of magnitude higher than necessary.
 
@@ -45,6 +47,8 @@ This is where things got weird—and baffling. Top management had ulterior motiv
 We ended the meeting with the decision to deploy `P` in `DC-2`, while `A` and `B` remained in `DC-1`.
 
 After the meeting, I sat there bewildered—how could all these architects willingly bypass basic architectural principles for political reasons?
+
+### Aftermath
 
 This is why so many large companies end up with complex software architectures that result in slow user experiences. Instead of optimizing for performance, architects often prioritize arbitrary factors—sometimes political.
 
@@ -64,5 +68,5 @@ He reversed the decision, and in the end, we implemented the proxy system in the
 
 I’m glad such architects still exist—but we got lucky. The decision could have easily slipped under his radar.
 
-This happened a few years ago. If anyone reading this feels bad about it—good, you should! Hopefully, this story will change some minds about what truly matters in architecture.
+This happened a few years ago. If anyone involved in that decision is reading this and is offended by it—good, you should! Hopefully, this story will change some minds about what truly matters in architecture.
 
