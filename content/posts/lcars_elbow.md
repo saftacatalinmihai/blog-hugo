@@ -21,12 +21,13 @@ seo:
 var Module = {
     canvas: document.getElementById('canvas'),
     print: function(text) {
-        consle.log(text);
-    // document.getElementById('output').innerHTML += text + "<br>";
+        document.getElementById('output').innerHTML += text + "<br>";
+    },
+    locateFile: function(path, prefix) {
+        return 'https://public.mihai-safta.dev/' + path;
     }
 };
 </script>
-
 <!-- Load the generated JS wrapper -->
 <script src="/lcars.js"></script>
 {{< /rawhtml >}}

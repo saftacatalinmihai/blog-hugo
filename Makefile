@@ -1,2 +1,2 @@
 run-on-localhost:
-	hugo serve -D -b / -w
+	hugo serve --disableFastRender -D -b / -w
