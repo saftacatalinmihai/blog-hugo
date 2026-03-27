@@ -193,7 +193,7 @@ enableEmoji = true
                 # LoveIt NEW | 0.1.1
                 enable = true
                 owner = "Safta Catalin Mihai"
-                repo = "github.com/saftacatalinmihai/blog-hugo"
+                repo = "https://github.com/saftacatalinmihai/blog-hugo"
                 clientId = "510f7416478f62962093"
                 clientSecret = "b1857059534118ef1433bd5f92fe1a8e8da0f483"
 
