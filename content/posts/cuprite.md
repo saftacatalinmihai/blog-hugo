@@ -31,6 +31,8 @@ TODO:
 - Acknowledge an already existing cuprite project in Ruby
 - Facil.IO - alreay used as a ruby server 
 - talk about the coincidence from the 2 above of finding links to ruby in choices made, before knowing about them.
+- adress #no-build. 
+- c is fast - perf test ab show
 - How to use:
   - model generation (using ruby)
   - run migrations
