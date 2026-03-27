@@ -1,0 +1,4 @@
+run = "hugo server -D -b / --disableFastRender --port 80"
+
+[nix]
+channel = "stable-22_11"

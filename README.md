@@ -1,4 +1,5 @@
 ### pull loveIt theme
+git clone https://github.com/dillonzq/LoveIt.git
 
 ### install hugo extended
 sudo apt update
