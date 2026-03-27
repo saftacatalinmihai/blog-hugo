@@ -68,5 +68,5 @@ He reversed the decision, and in the end, we implemented the proxy system in the
 
 I’m glad such architects still exist—but we got lucky. The decision could have easily slipped under his radar.
 
-This happened a few years ago. If anyone reading this feels bad about it—good, you should! Hopefully, this story will change some minds about what truly matters in architecture.
+This happened a few years ago. If anyone involved in that decision is reading this and is offended by it—good, you should! Hopefully, this story will change some minds about what truly matters in architecture.
 
