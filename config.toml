@@ -251,6 +251,12 @@ enableEmoji = true
         # LoveIt NEW | 0.2.4 whether to use the absolute URL based on the baseURL in search index
         absoluteURL = false
 
+    # LoveIt NEW | 0.2.0 Analytics config
+    [params.analytics]
+        enable = true
+        [params.analytics.plausible]
+            domain = "blog.mihaisafta.com"
+
 [outputs]
     home = ["HTML", "RSS", "JSON"]
 
