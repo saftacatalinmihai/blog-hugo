@@ -8,7 +8,7 @@ This is a tale of software architecture decision-making in large companies.
 
 ### The setup
 
-As part of my job as a software architect, I had to design a solution which involved the integration between 2 systems: let's call them `A` and `B`. System `B` had a legacy integration mechanism that was no longer supported at the architectural level. A proxy system - call it `P` was implemented to facilitate the translation between the legacy interface into a more modern - JSON over HTTP - API.
+As part of my job as a software architect, I had to design a solution which involved the integration between 2 systems: let's call them `A` and `B`. They were part of a new instant payment processing flow that was beeing developed. System `B` had a legacy integration mechanism that was no longer supported at the architectural level. A proxy system - call it `P` was implemented to facilitate the translation between the legacy interface into a more modern - JSON over HTTP - API.
 
 {{< mermaid >}}
 sequenceDiagram
