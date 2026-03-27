@@ -38,13 +38,11 @@ My benchmark for the proof of concept is to replicate as close as possible the c
 
 ## How
 
-### Web framework library
-
 I did not want to start completely from scratch and build an http server code in C, so I looked around for C http server libraries.
 
 I landed on [facil.io](https://facil.io/) which provides high performance TCP/IP network services by using an evented design that was tested to provide an easy solution to [the C10K problem](https://www.kegel.com/c10k.html).
 
-I later learned is also used for a Rails server backend implementation (just one of the coincidences that links this project with Ruby on Rails - happened multiple times during this project)
+I later learned is also used for a Rails server backend implementation: [Iodine](https://github.com/boazsegev/iodine) (just one of the coincidences that links this project with Ruby on Rails - happened multiple times during this project)
 
 ### Model / ActiveRecord
 
