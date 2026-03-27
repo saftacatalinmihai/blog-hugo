@@ -267,7 +267,7 @@ enableEmoji = true
     [params.analytics]
         enable = true
         [params.analytics.plausible]
-            dataDomain = "blog.mihaisafta.com"
+            dataDomain = "mihai-safta.dev"
 
 [outputs]
     home = ["HTML", "RSS", "JSON"]
