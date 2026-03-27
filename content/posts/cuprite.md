@@ -12,7 +12,7 @@ tags:
 
 {{< rawhtml >}}<span style="font-size: xxx-large; font-family: serif; font-style: italic">W</span>{{< /rawhtml >}}hat do you get when you binge watch [DHH](https://dhh.dk/) talks[^1] and podcasts[^2] [^3], but you are also in a `low level` programming mood from watching the [Better Software Conference](https://www.youtube.com/@BetterSoftwareConference) talks and other sources like [Wookash](https://www.youtube.com/@WookashPodcast) and [Casey Muratori](https://caseymuratori.com/)'s [Computer Enhance](https://www.computerenhance.com/about) courses ?
 
-Well... what I got is an urge to write a Ruby on Rails like - web framework - in C.
+Well... What I got is an urge to write a Ruby on Rails like - web framework - in C.
 
 {{< admonition type=note title="TL;DR" open=true >}}
 The link to [Cuprite](https://github.com/saftacatalinmihai/cuprite)
@@ -225,6 +225,7 @@ There is nothing special about the controller in Cuprite. It is just a file cont
 ### Running the server
 
 We can start the server with
+
 ```sh
 make start
 ```
@@ -235,8 +236,8 @@ TODO:
 
 - [ ] Acknowledge an already existing cuprite project in Ruby
 - [ ] compare code between Rails and Cuprite.
-  - [ ] model
-  - [ ] routes
+  - [x] model
+  - [x] routes
   - [ ] controller
   - [ ] views
     - [ ] talk about HTMX as opposed to Turbo (preload, view transitions, mustache)
