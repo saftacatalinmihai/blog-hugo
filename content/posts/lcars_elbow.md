@@ -1,13 +1,9 @@
 ---
 title: "Raylib LCARS Elbow designer"
-date: 2026-03-19T16:19:44+02:00
-draft: true
+date: 2026-03-18T18:19:44+02:00
 ---
 
 ## [LCARS](https://en.wikipedia.org/wiki/LCARS) Elbow designer in [Raylib](https://www.raylib.com/)
-
-Just a fun little project for designing LCARS elbows.
-Code: https://github.com/saftacatalinmihai/lcars/blob/main/lcars.c
 
 {{< rawhtml >}}
     <canvas id="canvas" style="
@@ -29,3 +25,7 @@ var Module = {
 <!-- Load the generated JS wrapper -->
 <script src="/lcars.js"></script>
 {{< /rawhtml >}}
+
+Just a fun little project for designing LCARS elbows.
+Click 'd' key for debug view.
+Code: <https://github.com/saftacatalinmihai/lcars/blob/main/lcars.c>
