@@ -3,3 +3,8 @@ resources/
 .themes/
 public/
 .DS_Store
+.vscode/
+static/vsps_fibonacci.gif
+static/vsps_logs.gif
+content/posts/img.png
+LoveIt/
