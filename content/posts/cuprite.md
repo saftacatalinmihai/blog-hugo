@@ -10,12 +10,12 @@ tags:
   - htmx
 ---
 
-What do you get when you binge watch DHH talks[^1] and podcasts[^2] [^3], but are also in a low level programming mood from watching @Better Software Conference talks ?
+What do you get when you binge watch DHH talks[^1] and podcasts[^2] [^3], but are also in a low level programming mood from watching [Better Software Conference](https://www.youtube.com/@BetterSoftwareConference) talks ?
 
 What I got is an experiment to write a Ruby on Rails like web framework in C.
 TL;DR - [Github link](https://github.com/saftacatalinmihai/cuprite)
 
-# Why?
+## Why?
 <!-- 
 {{< rawhtml >}}
 <div class="class">
@@ -26,12 +26,14 @@ TL;DR - [Github link](https://github.com/saftacatalinmihai/cuprite)
 Ruby on Rails is already known to be the best web framework for developer happiness.
 I don't want to reinvent the developer experience, but wanted to see how close I could get to the Ruby version using the C programming language.
 
+To do this I wanted to replicate the experience of following the [ruby getting started tutorial](https://guides.rubyonrails.org/getting_started.html) and try to keep the code as similar as possible with the ruby one.
+
 TODO:
 
 - Acknowledge an already existing cuprite project in Ruby
-- Facil.IO - alreay used as a ruby server 
+- Facil.IO - already used as a ruby server
 - talk about the coincidence from the 2 above of finding links to ruby in choices made, before knowing about them.
-- adress #no-build. 
+- address #no-build.
 - c is fast - perf test ab show
 - How to use:
   - model generation (using ruby)
