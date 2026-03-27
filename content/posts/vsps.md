@@ -70,6 +70,8 @@ Then I start implementing the components one by one, slowly filling out the grap
 The implementation also guides the graph design by surfacing some paths I haven't thought of before - especially error cases, edge cases, etc.
 But I always have a running system, even if it is not fully implemented.
 
+At the same time I want to combine this woth the feeling of freedom and speed of drawing diagrams like I do for my day job as a software architect. I work a lot with DrawIO and I like having the ability to quickly iterate, duplicate parts of the diagram, mix and match various ideas to show various options for designs. I want to be able to do the same but with real, running software.
+
 This is a highly experimental project that I've been working on in my (very limited) spare time, but I think it has potential.
 
 If you are interested in this project, please reach out to me. I would love to hear your thoughts on it.
