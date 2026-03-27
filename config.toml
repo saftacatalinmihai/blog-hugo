@@ -230,7 +230,7 @@ enableEmoji = true
             # your social ID
             id = "@mihaisafta"
             # prefix of your social link
-            prefix = "https://mastodon.social/"
+            prefix = "https://fosstodon.org/"
             # content hovering on the icon
             title = "Mastodon"
 
