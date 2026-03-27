@@ -158,9 +158,47 @@ enableEmoji = true
             # default behavior when you don't set "hiddenFromHomePage" in front matter
             defaultHiddenFromHomePage = false
 
+    # LoveIt CHANGED | 0.2.0 Page global config
+    [params.page]
+        # LoveIt CHANGED | 0.2.0 social share links in post page
+        [params.page.share]
+            enable = true
+            Twitter = true
+            Facebook = true
+            Linkedin = true
+            Whatsapp = false
+            Pinterest = false
+            Tumblr = false
+            HackerNews = true
+            Reddit = true
+            VK = false
+            Buffer = false
+            Xing = false
+            Line = false
+            Instapaper = false
+            Pocket = false
+            Flipboard = false
+            Weibo = false
+            Blogger = false
+            Baidu = false
+            Odnoklassniki = false
+            Evernote = false
+            Skype = false
+            Trello = false
+            Mix = false
+        # LoveIt CHANGED | 0.2.0 Comment config
+        [params.page.comment]
+            enable = true
+            # Disqus comment config
+            [params.page.comment.disqus]
+                # LoveIt NEW | 0.1.1
+                enable = true
+                # Disqus shortname to use Disqus in posts
+                shortname = "@disqus_JakHM6fs2q"
+
+
     # Social config about the author
     [params.social]
-#        Mastodon = "https://fosstodon.org/@mihaisafta"
         GitHub = "saftacatalinmihai"
         Linkedin = "mihaisafta"
         Twitter = "mihaisafta_"
