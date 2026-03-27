@@ -24,7 +24,22 @@ TL;DR - [Github link](https://github.com/saftacatalinmihai/cuprite)
 {{< /rawhtml >}} -->
 
 Ruby on Rails is already known to be the best web framework for developer happiness.
-I don't want to reinvent the developer experience, but wanted to see how close I could get to the Ruby version using the C programming language.
+Rails emphasizes the use of other well-known software engineering patterns and paradigms, including convention over configuration (CoC), don't repeat yourself (DRY), and the active record pattern.
+I don't want to reinvent the wheel for developer experience given that there is already a good model, but wanted to see how close I could get to the Ruby version using the C programming language.
+
+My benchmark for the proof of concept is to replicate as close as possible the code from the [Rails getting started page](https://guides.rubyonrails.org/getting_started.html).
+
+# How?
+I did not want to start completely from scratch and also build the http server code, so I looked around for C http server libraries. 
+Landed on facil.io - which I later learned is also used for a Rails server backend implementation ( just one of the coincidences that happened during this project )
+
+The first step is to define a model, which you can do in C by just defining a struct.
+'''
+typedef struct {
+   id: int,
+   name: char*,
+} Product;
+
 
 TODO:
 
@@ -33,6 +48,7 @@ TODO:
 - talk about the coincidence from the 2 above of finding links to ruby in choices made, before knowing about them.
 - adress #no-build. 
 - c is fast - perf test ab show
+- i use arch, omarchi , neovim , btw.
 - How to use:
   - model generation (using ruby)
   - run migrations
