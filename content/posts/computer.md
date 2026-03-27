@@ -59,7 +59,7 @@ apps with something that feels both more advanced and more intuitive.
 
 This architecture is specifically designed to enable flexible CRUD operations through natural language. The database layer supports dynamic schema creation, while the LLM "brain" translates user intentions into appropriate database operations.
 
-```mermaid
+{{< mermaid >}}
 graph TD
     User[User] --> |Natural Language| Interfaces
     subgraph Interfaces
@@ -90,7 +90,7 @@ graph TD
         SQLite[SQLite]
         Postgres[PostgreSQL]
     end
-```
+{{< /mermaid >}}
 
 ---
 
