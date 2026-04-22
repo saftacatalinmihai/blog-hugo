@@ -6,7 +6,6 @@ images:
 seo:
   images: 
     - "https://public.mihai-safta.dev/lcars_frame/lcars_texted.png"
-draft: true
 ---
 
 ## [LCARS](https://en.wikipedia.org/wiki/LCARS) Text editor in [Raylib](https://www.raylib.com/)
