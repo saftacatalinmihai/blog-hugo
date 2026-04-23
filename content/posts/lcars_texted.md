@@ -29,19 +29,26 @@ This is for something like the personal log / Captain's log use-case.
     var Module = {
         canvas: document.getElementById('canvas'),
         print: function(text) {
-            document.getElementById('output').innerHTML += text + "<br>";
+            // document.getElementById('output').innerHTML += text + "<br>";
         },
         locateFile: function(path, prefix) {
             return 'https://public.mihai-safta.dev/lcars_texted/' + path;
         }
     };
+
+    // window.onkeydown = function(e) {
+    //     if(e.keyCode == 32 && e.target == canvas) {
+    //         e.preventDefault();
+    //         return false;
+    //     }
+    // };
   </script>
 
   <!-- Load the generated JS wrapper -->
   <script src="https://public.mihai-safta.dev/lcars_texted/lcars.js"></script>
 {{< /rawhtml >}}
 
-Full screen version available [here](https://public.mihai-safta.dev/lcars_texted/lcars.html)
+Works better in the full screen version available [here](https://public.mihai-safta.dev/lcars_texted/lcars.html)
 
 ## Features
 
