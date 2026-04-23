@@ -2,10 +2,10 @@
 title: "LCARS text editor"
 date: 2026-04-21T18:27:09+03:00
 images: 
-  - "https://public.mihai-safta.dev/lcars_frame/lcars_texted.png"
+  - "https://public.mihai-safta.dev/lcars_texted/lcars_texted.gif"
 seo:
   images: 
-    - "https://public.mihai-safta.dev/lcars_frame/lcars_texted.png"
+    - "https://public.mihai-safta.dev/lcars_texted/lcars_texted.gif"
 ---
 
 ## [LCARS](https://en.wikipedia.org/wiki/LCARS) Text editor in [Raylib](https://www.raylib.com/)
