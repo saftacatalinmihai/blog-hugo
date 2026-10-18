@@ -3,15 +3,16 @@ title: "Software for One: My Star Trek Computer [Built by AI Agents]"
 subtitle: "The computer I've wanted since watching Star Trek as a kid in the 90s, built by a crew of AI agents - LCARS, part 5"
 date: 2026-10-18T14:07:00+03:00
 draft: false
+description: "A personal LCARS journal whose crew of AI agents changes the software when I ask: one SQLite table, Claude Code engineers I give orders to from my phone, and a 3D Enterprise in the browser. Software for one user."
 images:
-  - "https://public.mihai-safta.dev/lcars_journal/poster.png"
+  - "https://public.mihai-safta.dev/lcars_journal/bridge-card.jpg"
 videos:
-  - "https://public.mihai-safta.dev/lcars_journal/lcars-demo.mp4"
+  - "https://public.mihai-safta.dev/lcars_journal/deck-teaser.mp4"
 seo:
   images:
-    - "https://public.mihai-safta.dev/lcars_journal/poster.png"
+    - "https://public.mihai-safta.dev/lcars_journal/bridge-card.jpg"
   videos:
-    - "https://public.mihai-safta.dev/lcars_journal/lcars-demo.mp4"
+    - "https://public.mihai-safta.dev/lcars_journal/deck-teaser.mp4"
 ---
 
 Michael Okuda designed Star Trek's [LCARS](https://en.wikipedia.org/wiki/LCARS) screens. In [an interview with Adam Savage](https://youtu.be/D24tYFIVyv0?t=257), he tells how Marina Sirtis found the bridge's control panels intimidating on the first day of filming. His answer to her: the panels are software-defined, based on your user profile, so the button you hit is always the correct one.
@@ -26,7 +27,7 @@ Software for one: built for exactly one user, by a team that isn't people. This 
 
 {{< rawhtml >}}
 <video autoplay muted loop playsinline preload="auto"
-       poster="https://public.mihai-safta.dev/lcars_journal/deck-teaser-poster.jpg"
+       poster="https://public.mihai-safta.dev/lcars_journal/bridge-card.jpg"
        style="max-width: 100%; display: block;">
   <source src="https://public.mihai-safta.dev/lcars_journal/deck-teaser.webm" type="video/webm">
   <source src="https://public.mihai-safta.dev/lcars_journal/deck-teaser.mp4" type="video/mp4">
