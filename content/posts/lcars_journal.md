@@ -36,6 +36,8 @@ Software for one: built for exactly one user, by a team that isn't people. This 
 
 *19 seconds on the ship: the 3D bridge, a crew member made an engineer and given an order, an entry pinned to the ready room wall, and a pile of them on the desk. Each part below has a longer video.*
 
+**Try it yourself:** [the console](https://public.mihai-safta.dev/lcars-demo/index.html) and [the 3D ship](https://public.mihai-safta.dev/lcars-demo/deck.html), on a made-up journal. No login, and your edits stay in your browser.
+
 I've wanted the computer from Star Trek since watching the show as a kid in the 90s. You say *"Computer, ..."* and something happens.
 
 {{< figure src="https://public.mihai-safta.dev/lcars_journal/bridge.webp" alt="The main bridge of the 3D Enterprise, running in the browser" title="The main bridge of the 3D Enterprise, running in the browser" >}}
@@ -354,7 +356,7 @@ Every outside service, with the docs I'd start from:
 
 ### Will I open source it?
 
-Maybe. If people are interested, I'd like to. Right now it isn't ready: it was built for one box and one person, and before I publish it I'd need to do some work to make sure it's safe to open up, starting with going through the code and its whole history for anything private. If you'd want to see it, let me know.
+Maybe. If people are interested, I'd like to. Right now it isn't ready: it was built for one box and one person, and before I publish it I'd need to do some work to make sure it's safe to open up, starting with going through the code and its whole history for anything private. If you'd want to see it, let me know. Meanwhile, there is [a demo you can try](https://public.mihai-safta.dev/lcars-demo/index.html): the console and the ship on a made-up journal, running entirely in your browser.
 
 ### What I make of it
 
