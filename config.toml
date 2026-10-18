@@ -219,11 +219,25 @@ enableEmoji = true
             enable = true
             [params.page.comment.gitalk]
                 # LoveIt NEW | 0.1.1
-                enable = true
+                enable = false
                 owner = "saftacatalinmihai"
                 repo = "blog-hugo"
-                clientId = "510f7416478f62962093"
-                clientSecret = "b1857059534118ef1433bd5f92fe1a8e8da0f483"
+            [params.page.comment.giscus]
+                # GitHub Discussions; a post's thread is found by its path, so a
+                # change of date never orphans it
+                enable = true
+                repo = "saftacatalinmihai/blog-hugo"
+                repoId = "R_kgDOItWakw"
+                category = "Announcements"
+                categoryId = "DIC_kwDOItWak84DI4fh"
+                lang = "en"
+                mapping = "pathname"
+                reactionsEnabled = "1"
+                emitMetadata = "0"
+                inputPosition = "bottom"
+                lazyLoading = false
+                lightTheme = "light"
+                darkTheme = "dark"
 
     # Social config about the author
     [params.social]
