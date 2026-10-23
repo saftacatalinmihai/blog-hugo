@@ -250,6 +250,9 @@ enableEmoji = true
         Email = "saftacatalinmihai@gmail.com"
         Instagram = "saftacatalinmihai"
         RSS = true
+        # not in LoveIt's list: its entry and icon are this site's,
+        # assets/data/social.yml and assets/lib/simple-icons/icons/bluesky.svg
+        Bluesky = "mihai-safta.bsky.social"
         [params.social.Mastodon]
             # weight when arranging icons (the greater the weight, the later the icon is positioned)
             weight = -1
